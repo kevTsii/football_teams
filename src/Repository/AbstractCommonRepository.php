@@ -40,7 +40,7 @@ class AbstractCommonRepository extends ServiceEntityRepository
      *
      * @return void
      */
-    public function save($oEntity, bool $flush): void
+    public function save($oEntity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($oEntity);
 

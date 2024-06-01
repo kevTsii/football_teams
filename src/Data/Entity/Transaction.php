@@ -27,7 +27,7 @@ class Transaction
     private ?Team $buyer = null;
 
     #[ORM\Column]
-    private ?float $price = null;
+    private ?float $amount = null;
 
     #[ORM\Column]
     private ?\DateTimeInterface $createdAt;
@@ -81,14 +81,14 @@ class Transaction
         return $this;
     }
 
-    public function getPrice(): ?float
+    public function getAmount(): ?float
     {
-        return $this->price;
+        return $this->amount;
     }
 
-    public function setPrice(float $price): static
+    public function setAmount(float $amount): static
     {
-        $this->price = $price;
+        $this->amount = $amount;
 
         return $this;
     }

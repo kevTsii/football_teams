@@ -31,7 +31,7 @@ class TransactionFactory
         $transaction->setPlayer($this->playerRepository->find((int)$informations['player']));
         $transaction->setSeller($this->teamRepository->find((int)$informations['seller']));
         $transaction->setBuyer($this->teamRepository->find((int)$informations['buyer']));
-        $transaction->setPrice((float)$informations['price']);
+        $transaction->setAmount((float)$informations['amount']);
 
         return $transaction;
     }
