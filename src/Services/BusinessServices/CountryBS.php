@@ -4,6 +4,8 @@ namespace App\Services\BusinessServices;
 
 use App\Data\Entity\Country;
 use App\Repository\CountryRepository;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Psr\Log\LoggerInterface;
 
 class CountryBS
@@ -34,6 +36,22 @@ class CountryBS
             $this->logger->error('Failed to create a new country. || Fatal Error : '.$e->getMessage().' in '.$e->getFile().' on line '.$e->getLine());
             return null;
         }
+    }
+
+    /**
+     * Get the all countries (paginate).
+     *
+     * @param int $page
+     * @param int $limit
+     *
+     * @return iterable
+     */
+    public function getAllCountriesPaginate(int $page, int $limit): iterable
+    {
+        return (new Pagerfanta(new QueryAdapter($this->repository->getAllQuery('c'))))
+            ->setCurrentPage($page)
+            ->setMaxPerPage($limit)
+            ->getCurrentPageResults();
     }
 
     /**

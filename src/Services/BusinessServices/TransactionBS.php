@@ -5,6 +5,8 @@ namespace App\Services\BusinessServices;
 use App\Data\Entity\Transaction;
 use App\Factory\TransactionFactory;
 use App\Repository\TransactionRepository;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Psr\Log\LoggerInterface;
 
 class TransactionBS
@@ -35,6 +37,22 @@ class TransactionBS
             $this->logger->error('Failed to create a new transaction. || Fatal Error : '.$e->getMessage().' in '.$e->getFile().' on line '.$e->getLine());
             return null;
         }
+    }
+
+    /**
+     * Get the all transactions (paginate).
+     *
+     * @param int $page
+     * @param int $limit
+     *
+     * @return iterable
+     */
+    public function getAllTransactionsPaginate(int $page, int $limit): iterable
+    {
+        return (new Pagerfanta(new QueryAdapter($this->repository->getAllQuery('tr'))))
+            ->setCurrentPage($page)
+            ->setMaxPerPage($limit)
+            ->getCurrentPageResults();
     }
 
     /**

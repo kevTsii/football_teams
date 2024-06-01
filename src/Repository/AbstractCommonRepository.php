@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 class AbstractCommonRepository extends ServiceEntityRepository
@@ -19,7 +20,20 @@ class AbstractCommonRepository extends ServiceEntityRepository
     }
 
     /**
-     * Save entity's information
+     * Return only the query that is equivalent to findAll() default function.
+     *
+     * @param string $alias
+     *
+     * @return Query
+     */
+    public function getAllQuery(string $alias): Query
+    {
+        return $this->createQueryBuilder($alias)
+            ->getQuery();
+    }
+
+    /**
+     * Save entity's information.
      *
      * @param      $oEntity
      * @param bool $flush "True" if flushing wanted
@@ -34,7 +48,8 @@ class AbstractCommonRepository extends ServiceEntityRepository
     }
 
     /**
-     * Delete an existent entity
+     * Delete an existent entity.
+     *
      * @param      $oEntity
      * @param bool $flush "True" if flushing wanted
      *

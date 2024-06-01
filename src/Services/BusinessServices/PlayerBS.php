@@ -5,6 +5,8 @@ namespace App\Services\BusinessServices;
 use App\Data\Entity\Player;
 use App\Factory\PlayerFactory;
 use App\Repository\PlayerRepository;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Psr\Log\LoggerInterface;
 
 class PlayerBS
@@ -35,6 +37,22 @@ class PlayerBS
             $this->logger->error('Failed to create a new player. || Fatal Error : '.$e->getMessage().' in '.$e->getFile().' on line '.$e->getLine());
             return null;
         }
+    }
+
+    /**
+     * Get the all players (paginate).
+     *
+     * @param int $page
+     * @param int $limit
+     *
+     * @return iterable
+     */
+    public function getAllPlayersPaginate(int $page, int $limit): iterable
+    {
+        return (new Pagerfanta(new QueryAdapter($this->repository->getAllQuery('p'))))
+            ->setCurrentPage($page)
+            ->setMaxPerPage($limit)
+            ->getCurrentPageResults();
     }
 
     /**

@@ -5,6 +5,8 @@ namespace App\Services\BusinessServices;
 use App\Data\Entity\Team;
 use App\Factory\TeamFactory;
 use App\Repository\TeamRepository;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Psr\Log\LoggerInterface;
 
 class TeamBS
@@ -35,6 +37,22 @@ class TeamBS
             $this->logger->error('Failed to create a new team. || Fatal Error : '.$e->getMessage().' in '.$e->getFile().' on line '.$e->getLine());
             return null;
         }
+    }
+
+    /**
+     * Get the all teams (paginate).
+     *
+     * @param int $page
+     * @param int $limit
+     *
+     * @return iterable
+     */
+    public function getAllTeamsPaginate(int $page, int $limit): iterable
+    {
+        return (new Pagerfanta(new QueryAdapter($this->repository->getAllQuery('te'))))
+            ->setCurrentPage($page)
+            ->setMaxPerPage($limit)
+            ->getCurrentPageResults();
     }
 
     /**
