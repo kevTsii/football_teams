@@ -2,6 +2,7 @@
 
 namespace App\Services\BusinessServices;
 
+use App\Data\Entity\Team;
 use App\Data\Entity\Transaction;
 use App\Factory\TransactionFactory;
 use App\Repository\TransactionRepository;
@@ -92,5 +93,44 @@ class TransactionBS
             $this->logger->error('Failed to delete Transaction with id : '.$transaction->getId().' || Fatal Error : '.$e->getMessage().' in '.$e->getFile().' on line '.$e->getLine());
             return false;
         }
+    }
+
+    /**
+     * Check if the buyer can buy the player.
+     *
+     * @param Team  $buyer
+     * @param float $transactionAmount
+     *
+     * @return bool
+     */
+    public function canBuy(Team $buyer, float $transactionAmount): bool
+    {
+        return $buyer->getMoneyBalance() > $transactionAmount;
+    }
+
+    /**
+     * Add the transaction amount in the seller money balance.
+     *
+     * @param Team  $seller
+     * @param float $transactionAmount
+     *
+     * @return void
+     */
+    public function increaseSellerBalance(Team $seller, float $transactionAmount): void
+    {
+        $seller->setMoneyBalance($seller->getMoneyBalance() - $transactionAmount);
+    }
+
+    /**
+     * Remove the transaction amount from the buyer money balance.
+     *
+     * @param Team  $buyer
+     * @param float $transactionAmount
+     *
+     * @return void
+     */
+    public function decreaseBuyerBalance(Team $buyer, float $transactionAmount): void
+    {
+        $buyer->setMoneyBalance($buyer->getMoneyBalance() + $transactionAmount);
     }
 }
