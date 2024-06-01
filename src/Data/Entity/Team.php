@@ -47,7 +47,7 @@ class Team
     /**
      * @var Collection<int, Transaction>
      */
-    #[ORM\OneToMany(targetEntity: Transaction::class, mappedBy: 'buyers')]
+    #[ORM\OneToMany(targetEntity: Transaction::class, mappedBy: 'buyer')]
     private Collection $purchases;
 
     public function __construct()

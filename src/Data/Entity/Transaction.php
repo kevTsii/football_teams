@@ -24,7 +24,10 @@ class Transaction
 
     #[ORM\ManyToOne(inversedBy: 'purchases')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Team $buyers = null;
+    private ?Team $buyer = null;
+
+    #[ORM\Column]
+    private ?float $price = null;
 
     #[ORM\Column]
     private ?\DateTimeInterface $createdAt;
@@ -66,14 +69,26 @@ class Transaction
         return $this;
     }
 
-    public function getBuyers(): ?Team
+    public function getBuyer(): ?Team
     {
-        return $this->buyers;
+        return $this->buyer;
     }
 
-    public function setBuyers(?Team $buyers): static
+    public function setBuyer(?Team $buyer): static
     {
-        $this->buyers = $buyers;
+        $this->buyer = $buyer;
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): static
+    {
+        $this->price = $price;
 
         return $this;
     }
