@@ -18,7 +18,8 @@ class TransactionFactory
     }
 
     /**
-     * Create a new transaction and set all its properties
+     * Create a new transaction and set all its properties.
+     *
      * @param array $informations
      *
      * @return Transaction
@@ -37,8 +38,9 @@ class TransactionFactory
 
     /**
      * Update an existing Transaction.
+     *
      * @param Transaction $transaction
-     * @param array $values As "property=>values" where property must be in camelCase.
+     * @param array       $values As "property=>values" where property must be in camelCase.
      *
      * @return Transaction
      */

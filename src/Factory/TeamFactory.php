@@ -17,6 +17,7 @@ class TeamFactory
 
     /**
      * Create a new team and set all its properties.
+     *
      * @param array $parameters
      *
      * @return Team
@@ -34,6 +35,7 @@ class TeamFactory
 
     /**
      * Update an existing team.
+     *
      * @param Team  $team
      * @param array $values As "property=>values" where property must be in camelCase.
      *

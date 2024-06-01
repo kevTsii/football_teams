@@ -15,7 +15,8 @@ class PlayerFactory
     }
 
     /**
-     * Create a new player and set all its properties
+     * Create a new player and set all its properties.
+     *
      * @param array $propertiesValue
      *
      * @return Player
@@ -33,12 +34,13 @@ class PlayerFactory
 
     /**
      * Update an existing player.
+     *
      * @param Player $player
      * @param array $values As "property=>values" where property must be in camelCase.
      *
      * @return Player
      */
-    public function updateTeam(Player $player, array $values): Player
+    public function updatePlayer(Player $player, array $values): Player
     {
         foreach ($values as $property => $value){
             $function = 'set'.ucfirst($property);
