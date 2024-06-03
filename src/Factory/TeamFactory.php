@@ -27,7 +27,7 @@ class TeamFactory
         $team = new Team();
 
         $team->setName($parameters['name']);
-        $team->setCountry($this->countryRepository->find((int)$parameters['country']));
+        $team->setCountry($parameters['country']);
         $team->setMoneyBalance((float)$parameters['moneyBalance']);
 
         return $team;

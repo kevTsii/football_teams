@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Team{% endblock %}
+
+{% block content %}
+    <div class="container flex-fill m-auto w-25">
+        <div class="d-flex justify-content-center">
+            <p class="mb-0 fs-3 fw-bold user-select-none">Create a new Team</p>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="w-50">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit" class="btn btn-primary">Submit</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
