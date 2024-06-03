@@ -20,10 +20,10 @@ class Country
     private ?string $name = null;
 
     #[ORM\Column]
-    private ?\DateTimeInterface $createdAt;
+    private ?\DateTime $createdAt;
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeInterface $updatedAt = null;
+    private ?\DateTime $updatedAt = null;
 
     /**
      * @var Collection<int, Team>

@@ -30,10 +30,10 @@ class Transaction
     private ?float $amount = null;
 
     #[ORM\Column]
-    private ?\DateTimeInterface $createdAt;
+    private ?\DateTime $createdAt;
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeInterface $updatedAt = null;
+    private ?\DateTime $updatedAt = null;
 
     public function __construct()
     {
@@ -93,24 +93,24 @@ class Transaction
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): static
+    public function setCreatedAt(\DateTime $createdAt): static
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): static
+    public function setUpdatedAt(?\DateTime $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
 
