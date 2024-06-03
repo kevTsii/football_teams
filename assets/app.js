@@ -1,4 +1,4 @@
-const $ = require('jquery');
+const $ = require('jquery')
 
 /*
  * Welcome to your app's main JavaScript file!
@@ -6,7 +6,13 @@ const $ = require('jquery');
  * This file will be included onto the page via the importmap() Twig function,
  * which should already be in your base.html.twig.
  */
-import './styles/app.scss';
+import './styles/app.scss'
+
+/**
+ * Font Awesome Free
+ */
+require('@fortawesome/fontawesome-free/css/all.min.css')
+require('@fortawesome/fontawesome-free/js/all')
 
 /**
  * JavaScript Files
