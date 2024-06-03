@@ -13,13 +13,9 @@
         {% endblock %}
     </head>
     <body>
-        <div class="wrapper">
+        <div class="wrapper d-flex">
             {% include 'layouts/sidebar.html.twig' %}
-            <div id="content-div">
-                {% block content %}
-
-                {% endblock %}
-            </div>
+            {% block content %}{% endblock %}
         </div>
     </body>
 </html>
