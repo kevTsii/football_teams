@@ -1,1 +1,51 @@
-{% include 'base.html.twig' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Teams{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('team') }}
+{% endblock %}
+
+{% block content %}
+    <div class="container text-center m-auto">
+        <h3>Teams</h3>
+        <div class="mb-3 d-flex align-items-center justify-content-end mt-3">
+            <form action="" class="col-3 d-flex justify-content-end">
+                    <div class="me-3 mt-1">
+                        <label for="content-number-limit" class="form-label align-middle">Limit</label>
+                    </div>
+                    <select name="limit" id="content-number-limit" class="form-select w-50" onchange="this.form.submit()">
+                        <option value="10" {{ 10 == teams.maxPerPage ? 'selected' : '' }}>10</option>
+                        <option value="25" {{ 25 == teams.maxPerPage ? 'selected' : '' }}>25</option>
+                        <option value="50" {{ 50 == teams.maxPerPage ? 'selected' : '' }}>50</option>
+                        <option value="100" {{ 100 == teams.maxPerPage ? 'selected' : '' }}>100</option>
+                    </select>
+            </form>
+        </div>
+        <div>
+            <table class="table table-clickable-row">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Money Balance</th>
+                        <th scope="col">Country</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for team in teams %}
+                    <tr class="user-select-none team-row" data-href="">
+                        <th scope="row">{{ team.id }}</th>
+                        <td>{{ team.name }}</td>
+                        <td>{{ team.moneyBalance }}</td>
+                        <td>{{ team.country.name }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="pagination d-flex justify-content-end">
+                {{ pagerfanta(teams, 'twitter_bootstrap5') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

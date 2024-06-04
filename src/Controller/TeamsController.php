@@ -20,10 +20,15 @@ class TeamsController extends AbstractController
     {
     }
 
-    #[Route('/', name: 'app_teams_index', methods: ["GET"])]
+    #[Route('/list', name: 'app_teams_index', methods: ["GET"])]
     public function index(Request $request): Response
     {
-        return $this->render('teams/index.html.twig');
+        $page = $request->query->get('page') ?? 1;
+        $limit = $request->query->get('limit') ?? 10;
+
+        return $this->render('teams/index.html.twig', [
+            'teams' => $this->teamBS->getAllTeamsPaginate((int)$page, (int)$limit)
+        ]);
     }
 
     #[Route('/create', name: 'app_teams_create', methods: ['GET', 'POST'])]

@@ -29,6 +29,7 @@ class AbstractCommonRepository extends ServiceEntityRepository
     public function getAllQuery(string $alias): Query
     {
         return $this->createQueryBuilder($alias)
+            ->orderBy($alias.'.id')
             ->getQuery();
     }
 

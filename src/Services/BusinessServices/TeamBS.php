@@ -50,9 +50,8 @@ class TeamBS
     public function getAllTeamsPaginate(int $page, int $limit): iterable
     {
         return (new Pagerfanta(new QueryAdapter($this->repository->getAllQuery('te'))))
-            ->setCurrentPage($page)
             ->setMaxPerPage($limit)
-            ->getCurrentPageResults();
+            ->setCurrentPage($page);
     }
 
     /**

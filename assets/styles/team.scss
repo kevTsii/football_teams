@@ -1,0 +1,12 @@
+.table-clickable-row{
+  tbody{
+    tr{
+      &:hover{
+        td, th{
+          cursor: pointer;
+          background-color: #8e95ae !important;
+        }
+      }
+    }
+  }
+}
