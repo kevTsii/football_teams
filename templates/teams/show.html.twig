@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ team.name }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('player') }}
+{% endblock %}
+
+{% block content %}
+    <div class="container text-center m-auto mt-2">
+        <h2>{{ team.name }}</h2>
+        <div class="d-block">
+            <div class="d-flex justify-content-between">
+                <div class="col-3">
+                    <fieldset class="fieldset-with-legend rounded-3">
+                        <legend>Money Balance</legend>
+                        <p class="fs-4 mb-0">{{ team.moneyBalance|format_currency('USD') }}</p>
+                    </fieldset>
+                </div>
+                <div class="col-3">
+                    <fieldset class="fieldset-with-legend rounded-3">
+                        <legend>Country</legend>
+                        <p class="fs-4 mb-0">{{ team.country.name }}</p>
+                    </fieldset>
+                </div>
+            </div>
+            <div>
+                <h4>Players</h4>
+                <div>
+                    <table id="players-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Surname</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Name</th>
+                            <th>Surname</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <input type="hidden" id="team-id" value="{{ team.id }}">
+{% endblock %}

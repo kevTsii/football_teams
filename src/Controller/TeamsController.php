@@ -51,4 +51,12 @@ class TeamsController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    #[Route('/show/{team}', name: 'app_teams_show', methods: ['GET'])]
+    public function show(Team $team): Response
+    {
+        return $this->render('teams/show.html.twig',[
+           'team' => $team
+        ]);
+    }
 }

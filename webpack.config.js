@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const Encore = require('@symfony/webpack-encore');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
@@ -22,6 +23,7 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('team', './assets/js/team.js')
+    .addEntry('player', './assets/js/player.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

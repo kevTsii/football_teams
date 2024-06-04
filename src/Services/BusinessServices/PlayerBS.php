@@ -51,8 +51,7 @@ class PlayerBS
     {
         return (new Pagerfanta(new QueryAdapter($this->repository->getAllQuery('p'))))
             ->setCurrentPage($page)
-            ->setMaxPerPage($limit)
-            ->getCurrentPageResults();
+            ->setMaxPerPage($limit);
     }
 
     /**
