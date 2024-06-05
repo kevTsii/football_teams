@@ -16,15 +16,32 @@ let PlayersTable = new DataTable('#players-table', {
       param.orderDir = param.order[0].dir;
     },
     dataSrc : function ( json ){
-      return json;
+      return JSON.parse(json.datas);
     },
-    lengthMenu: [
-      [10, 25, 50, -1],
-      [10, 25, 50, 'All'],
-    ],
-    columns: [
-      { data: "name" },
-      { data: "surname" }
-    ],
-  }
+  },
+  lengthMenu: [
+    [10, 25, 50, -1],
+    [10, 25, 50, 'All'],
+  ],
+  columns: [
+    { data: "name" },
+    { data: "surname" },
+    {
+      data: null,
+      defaultContent: ""
+    }
+  ],
+  columnDefs: [
+    { targets: '_all', className: "dt-head-center user-select-none", orderable: false },
+    { targets: 2,
+      render: function (data, type, row){
+        let date = new Date(row.updatedAt);
+        const year = date.getUTCFullYear();
+        const month = date.toLocaleString('en-US', { month: 'long' });
+        const day = date.getUTCDate().toString().padStart(2, '0');
+
+        return `${day} ${month} ${year}`;
+      }}
+  ]
 });
+$(".dt-length, .dt-search").hide();

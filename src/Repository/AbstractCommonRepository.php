@@ -23,14 +23,36 @@ class AbstractCommonRepository extends ServiceEntityRepository
      * Return only the query that is equivalent to findAll() default function.
      *
      * @param string $alias
+     * @param array  $parameters
      *
      * @return Query
      */
-    public function getAllQuery(string $alias): Query
+    public function getAllQuery(string $alias, array $parameters = []): Query
     {
-        return $this->createQueryBuilder($alias)
-            ->orderBy($alias.'.id')
+        $qb = $this->createQueryBuilder($alias);
+
+        foreach($parameters as $key => $value){
+            $qb->andWhere($alias.'.'.$key.'= :'.$key)
+                ->setParameter($key, $value);
+        }
+
+        return $qb->orderBy($alias.'.id')
             ->getQuery();
+    }
+
+    /**
+     * Count all the rows inside the table
+     *
+     * @param string $alias
+     *
+     * @return int
+     */
+    public function countAll(string $alias): int
+    {
+        $qb = $this->createQueryBuilder($alias)
+                   ->select('count('.$alias.'.id)');
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
     /**

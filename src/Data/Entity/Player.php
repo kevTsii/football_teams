@@ -6,6 +6,7 @@ use App\Repository\PlayerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Table(name: 'players')]
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
@@ -14,12 +15,15 @@ class Player
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('no-team-serialized')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('no-team-serialized')]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('no-team-serialized')]
     private ?string $surname = null;
 
     #[ORM\ManyToOne(inversedBy: 'players')]
@@ -27,9 +31,11 @@ class Player
     private ?Team $team = null;
 
     #[ORM\Column]
+    #[Groups('no-team-serialized')]
     private ?\DateTime $createdAt;
 
     #[ORM\Column(nullable: true)]
+    #[Groups('no-team-serialized')]
     private ?\DateTime $updatedAt = null;
 
     /**
@@ -42,6 +48,7 @@ class Player
     {
         $this->transactions = new ArrayCollection();
         $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int
