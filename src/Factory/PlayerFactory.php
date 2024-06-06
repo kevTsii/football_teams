@@ -45,7 +45,9 @@ class PlayerFactory
         foreach ($values as $property => $value){
             $function = 'set'.ucfirst($property);
             if(method_exists($player, $function)){
-                if(EntityProperty::PLAYER['TEAM'] === $property) $value = $this->teamRepository->find((int)$value);
+                if(EntityProperty::PLAYER['TEAM'] === $property) {
+                    $value = $this->teamRepository->find((int)$value);
+                }
                 $player->$function($value);
             }
         }

@@ -45,8 +45,12 @@ class TeamFactory
     {
         foreach ($values as $property => $value){
             $function = 'set'.ucfirst($property);
-            if(EntityProperty::TEAM['COUNTRY'] === $property) $value = $this->countryRepository->find((int)$value);
-            $team->$function($value);
+            if(method_exists($team, $function)){
+                if(EntityProperty::TEAM['COUNTRY'] === $property){
+                    $value = $this->countryRepository->find((int)$value);
+                }
+                $team->$function($value);
+            }
         }
 
         return $team;
