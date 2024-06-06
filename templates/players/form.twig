@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ player.surname }}{% endblock %}
+{% block title %}{{ 'app_players_show' == app.current_route ? player.surname : 'Create new player' }}{% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('player') }}
@@ -11,12 +11,12 @@
         <div class="d-flex justify-content-end mb-2">
             <button class=" btn btn-success edit-button">Edit</button>
         </div>
-        <h2 class="text-center">{{ player.name }} {{ player.surname }}</h2>
+        <h2 class="text-center">{{ 'app_players_show' == app.current_route ? player.name~" "~player.surname : 'Create new player' }}</h2>
         <div class="d-flex justify-content-center mt-3">
             <div class="w-75">
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
-                <button id="edit-player-submit" type="submit" class="btn btn-primary d-none">Save changes</button>
+                <button id="edit-player-submit" type="submit" class="btn btn-primary {{ 'app_players_show' == app.current_route ? 'd-none' : '' }}">Save changes</button>
                 {{ form_end(form) }}
             </div>
         </div>

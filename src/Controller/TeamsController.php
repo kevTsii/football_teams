@@ -40,11 +40,13 @@ class TeamsController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $this->teamBS->createTeam([
+            $team = $this->teamBS->createTeam([
                 'name' => $team->getName(),
                 'country' => $team->getCountry(),
                 'moneyBalance' => $team->getMoneyBalance(),
             ]);
+
+            return $this->redirectToRoute('app_teams_show', ['team' => $team->getId()]);
         }
 
         return $this->render('teams/create.html.twig', [

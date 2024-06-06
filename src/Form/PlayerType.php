@@ -3,22 +3,27 @@
 namespace App\Form;
 
 use App\Data\Entity\Player;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PlayerType extends AbstractType
 {
+
+    public function __construct(private readonly RequestStack $requestStack)
+    {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $isEdit = 'app_players_show' === $this->requestStack->getCurrentRequest()->attributes->get('_route');
         $builder
             ->add('name', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'disabled' => 'true'
+                    'disabled' => $isEdit
                 ],
                 'label_attr' => [
                     'class' => 'form-label'
@@ -30,7 +35,7 @@ class PlayerType extends AbstractType
             ->add('surname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'disabled' => 'true'
+                    'disabled' => $isEdit
                 ],
                 'label_attr' => [
                     'class' => 'form-label'
