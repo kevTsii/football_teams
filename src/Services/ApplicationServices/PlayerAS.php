@@ -28,7 +28,8 @@ class PlayerAS
         $toReturn['datas'] = $this->serializer->serialize(
             $this->playerBS->getAllPlayersPaginate(
                 (int)$parameters['offset'] + 1,
-                (int)$parameters['limit']
+                (int)$parameters['limit'],
+                (int)$parameters['team']
             )->getCurrentPageResults(),
             'json',
             ['groups' => ['no-team-serialized']]);

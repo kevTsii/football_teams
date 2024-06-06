@@ -23,9 +23,13 @@ class PlayersController extends AbstractCommonController
     }
 
     #[Route('/list/{team}', name: 'app_players_index', methods: ['POST'])]
-    public function index(Request $request): Response
+    public function index(Request $request, Team $team): Response
     {
-        return $this->json($this->playerAS->getDataTableResponse($request->request->all()));
+        return $this->json(
+            $this->playerAS->getDataTableResponse(
+                array_merge($request->request->all(), ['team' => $team->getId()])
+            )
+        );
     }
 
     #[Route('/create/{team}', name: 'app_players_create', methods: ['GET', 'POST'])]
@@ -41,6 +45,8 @@ class PlayersController extends AbstractCommonController
                 $request->request->all()['player'],
                 ['team' => $teamId]
             ));
+
+            $this->addFlash('success', 'Player added successfully.');
 
             return $this->redirectToRoute('app_teams_show', ['team' => $teamId]);
         }
@@ -67,6 +73,8 @@ class PlayersController extends AbstractCommonController
     public function delete(Player $player): Response
     {
         $this->playerBS->deletePlayer($player);
+
+        $this->addFlash('success', 'Player deleted successfully');
 
         return $this->redirectToRoute('app_teams_show', [
             'team' => $player->getTeam()->getId(),

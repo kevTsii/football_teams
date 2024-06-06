@@ -44,12 +44,13 @@ class PlayerBS
      *
      * @param int $page
      * @param int $limit
+     * @param int $teamId
      *
      * @return Pagerfanta
      */
-    public function getAllPlayersPaginate(int $page, int $limit): Pagerfanta
+    public function getAllPlayersPaginate(int $page, int $limit, int $teamId): Pagerfanta
     {
-        return (new Pagerfanta(new QueryAdapter($this->repository->getAllQuery('p', ['team' => 1]))))
+        return (new Pagerfanta(new QueryAdapter($this->repository->getAllQuery('p', ['team' => $teamId]))))
             ->setCurrentPage($page)
             ->setMaxPerPage($limit);
     }

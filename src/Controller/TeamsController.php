@@ -74,4 +74,16 @@ class TeamsController extends AbstractCommonController
 
         return $this->renderFormView($team, Context::TEAM_CONTEXT, $form, 'teams/form.html.twig');
     }
+
+    #[Route('/delete/{team}', name: 'app_teams_delete', methods: ['GET', 'POST'])]
+    public function delete(Team $team): Response
+    {
+        if(($deleting = $this->teamBS->deleteTeam($team))['status']){
+            $this->addFlash('success', $deleting['message']);
+            return $this->redirectToRoute('app_teams_index');
+        }else{
+            $this->addFlash('error', $deleting['message']);
+            return $this->redirectToRoute('app_teams_show', ['team' => $team->getId()]);
+        }
+    }
 }
