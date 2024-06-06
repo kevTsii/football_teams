@@ -2,19 +2,18 @@
 
 namespace App\Controller;
 
+use App\Data\Constants\Context;
 use App\Data\Entity\Player;
 use App\Data\Entity\Team;
 use App\Form\PlayerType;
 use App\Services\ApplicationServices\PlayerAS;
 use App\Services\BusinessServices\PlayerBS;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/players')]
-class PlayersController extends AbstractController
+class PlayersController extends AbstractCommonController
 {
     public function __construct(
         private readonly PlayerAS $playerAS,
@@ -46,7 +45,7 @@ class PlayersController extends AbstractController
             return $this->redirectToRoute('app_teams_show', ['team' => $teamId]);
         }
 
-        return $this->renderFormView($player, $form);
+        return $this->renderFormView($player, Context::PLAYER_CONTEXT,  $form, 'players/form.twig');
     }
 
     #[Route('/show/{player}', name: 'app_players_show', methods: ['GET', 'POST'])]
@@ -57,16 +56,10 @@ class PlayersController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $this->playerBS->updatePlayer($player, $request->request->all()['player']);
+
+            return $this->redirectToRoute('app_teams_show', ['team' => $player->getTeam()->getId()]);
         }
 
-        return $this->renderFormView($player, $form);
-    }
-
-    private function renderFormView(Player $player, FormInterface $form): Response
-    {
-        return $this->render('players/form.twig',[
-            'player' => $player,
-            'form' => $form
-        ]);
+        return $this->renderFormView($player, Context::PLAYER_CONTEXT,  $form, 'players/form.twig');
     }
 }
