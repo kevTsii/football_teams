@@ -1,4 +1,5 @@
 const $ = require('jquery')
+require('bootstrap/dist/js/bootstrap')
 
 /*
  * Welcome to your app's main JavaScript file!
@@ -11,7 +12,6 @@ import './styles/app.scss'
 /**
  * Font Awesome Free
  */
-require('@fortawesome/fontawesome-free/css/all.min.css')
 require('@fortawesome/fontawesome-free/js/all')
 
 /**

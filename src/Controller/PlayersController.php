@@ -62,4 +62,14 @@ class PlayersController extends AbstractCommonController
 
         return $this->renderFormView($player, Context::PLAYER_CONTEXT,  $form, 'players/form.twig');
     }
+
+    #[Route('/delete/{player}', name: 'app_players_delete', methods: ['GET', 'DELETE'])]
+    public function delete(Player $player): Response
+    {
+        $this->playerBS->deletePlayer($player);
+
+        return $this->redirectToRoute('app_teams_show', [
+            'team' => $player->getTeam()->getId(),
+        ]);
+    }
 }
