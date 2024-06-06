@@ -2,16 +2,16 @@
 
 namespace App\Controller;
 
+use App\Data\Constants\Context;
 use App\Data\Entity\Team;
 use App\Form\TeamType;
 use App\Services\BusinessServices\TeamBS;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/teams')]
-class TeamsController extends AbstractController
+class TeamsController extends AbstractCommonController
 {
 
     public function __construct(
@@ -49,9 +49,7 @@ class TeamsController extends AbstractController
             return $this->redirectToRoute('app_teams_show', ['team' => $team->getId()]);
         }
 
-        return $this->render('teams/create.html.twig', [
-            'form' => $form->createView()
-        ]);
+        return $this->renderFormView($team, Context::TEAM_CONTEXT, $form, 'teams/form.html.twig');
     }
 
     #[Route('/show/{team}', name: 'app_teams_show', methods: ['GET'])]
@@ -60,5 +58,20 @@ class TeamsController extends AbstractController
         return $this->render('teams/show.html.twig',[
            'team' => $team
         ]);
+    }
+
+    #[Route('/edit/{team}', name: 'app_teams_update', methods: ['GET', 'POST'])]
+    public function update(Request $request, Team $team): Response
+    {
+        $form = $this->createForm(TeamType::class, $team);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $team = $this->teamBS->updateTeam($team, $request->request->all()['team']);
+
+            return $this->redirectToRoute('app_teams_show', ['team' => $team->getId()]);
+        }
+
+        return $this->renderFormView($team, Context::TEAM_CONTEXT, $form, 'teams/form.html.twig');
     }
 }

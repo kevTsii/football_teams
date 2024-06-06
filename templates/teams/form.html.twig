@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Create Team{% endblock %}
+{% set isEdit = ('app_players_show' == app.current_route) %}
+
+{% block title %}{{ isEdit ? team.name : 'Create Team' }}{% endblock %}
 
 {% block content %}
-    <div class="container flex-fill m-auto w-25 pe-5 ps-0">
+    <div class="container flex-fill m-auto w-25 pe-3">
         <div class="d-flex justify-content-center">
-            <p class="mb-0 fs-3 fw-bold user-select-none">Create a new Team</p>
+            <p class="mb-0 fs-3 fw-bold user-select-none">{{ isEdit ? team.name : 'Create a new Team' }}</p>
         </div>
         <div class="d-flex justify-content-center">
             <div class="w-50">
