@@ -2,14 +2,21 @@
 
 {% block title %}{{ player.surname }}{% endblock %}
 
+{% block javascripts %}
+    {{ encore_entry_script_tags('player') }}
+{% endblock %}
+
 {% block content %}
-    <div class="container m-auto">
+    <div class="container m-auto pe-5 ps-0 w-25">
+        <div class="d-flex justify-content-end mb-2">
+            <button class=" btn btn-success edit-button">Edit</button>
+        </div>
         <h2 class="text-center">{{ player.name }} {{ player.surname }}</h2>
         <div class="d-flex justify-content-center mt-3">
-            <div class="w-25">
+            <div class="w-75">
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
-                <button type="submit" class="btn btn-primary d-none">Save changes</button>
+                <button id="edit-player-submit" type="submit" class="btn btn-primary d-none">Save changes</button>
                 {{ form_end(form) }}
             </div>
         </div>

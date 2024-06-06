@@ -27,14 +27,14 @@ class PlayersController extends AbstractController
         return $this->json($this->playerAS->getDataTableResponse($request->request->all()));
     }
 
-    #[Route('/show/{player}', name: 'app_players_show', methods: ['GET'])]
+    #[Route('/show/{player}', name: 'app_players_show', methods: ['GET', 'POST'])]
     public function show(Request $request, Player $player): Response
     {
         $form = $this->createForm(PlayerType::class, $player);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $this->playerBS->updatePlayer($player, $request->request->all());
+            $this->playerBS->updatePlayer($player, $request->request->all()['player']);
         }
 
         return $this->render('players/show.html.twig',[

@@ -12,6 +12,9 @@
     <body>
         <div class="wrapper d-flex">
             {% include 'layouts/sidebar.html.twig' %}
+            <div id="content-header" class="mt-2 ms-3">
+                <button class="btn btn-warning" onclick="history.back()"><i class="fa fa-arrow-left"></i></button>
+            </div>
             {% block content %}{% endblock %}
         </div>
         <footer>
