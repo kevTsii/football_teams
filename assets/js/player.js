@@ -3,7 +3,7 @@ import DataTable from 'datatables.net-dt';
 const baseUrl = $('#base-url').val();
 const teamId = $('#team-id').val();
 
-let PlayersTable = new DataTable('#players-table', {
+let playersTable = new DataTable('#players-table', {
   processing: true,
   serverSide: true,
   ajax: {
@@ -45,3 +45,7 @@ let PlayersTable = new DataTable('#players-table', {
   ]
 });
 $(".dt-length, .dt-search").hide();
+
+$("#players-table tbody").on( 'click', 'tr', function(){
+  location.href = (`${baseUrl}/players/show/${playersTable.row(this).data().id}`);
+});

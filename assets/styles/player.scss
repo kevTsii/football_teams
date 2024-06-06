@@ -1,0 +1,10 @@
+#players-table{
+  tbody{
+    tr{
+      &:hover{
+        cursor: pointer;
+        background-color: #afb5c5 !important;
+      }
+    }
+  }
+}

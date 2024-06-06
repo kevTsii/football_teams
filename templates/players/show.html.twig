@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ player.surname }}{% endblock %}
+
+{% block content %}
+    <div class="container m-auto">
+        <h2 class="text-center">{{ player.name }} {{ player.surname }}</h2>
+        <div class="d-flex justify-content-center mt-3">
+            <div class="w-25">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit" class="btn btn-primary d-none">Save changes</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
