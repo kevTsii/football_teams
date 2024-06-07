@@ -38,14 +38,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for team in teams %}
-                    <tr class="user-select-none team-row" data-href="{{ path('app_teams_show', {team: team.id}) }}">
-                        <th scope="row">{{ team.id }}</th>
-                        <td>{{ team.name }}</td>
-                        <td>{{ team.moneyBalance|format_currency('USD') }}</td>
-                        <td>{{ team.country.name }}</td>
+                {% if teams is not empty %}
+                    {% for team in teams %}
+                        <tr class="user-select-none team-row" data-href="{{ path('app_teams_show', {team: team.id}) }}">
+                            <th scope="row">{{ team.id }}</th>
+                            <td>{{ team.name }}</td>
+                            <td>{{ team.moneyBalance|format_currency('USD') }}</td>
+                            <td>{{ team.country.name }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr class="user-select-none">
+                        <td colspan="5">No team in the database.</td>
                     </tr>
-                {% endfor %}
+                {% endif %}
                 </tbody>
             </table>
             <div class="pagination d-flex justify-content-end">

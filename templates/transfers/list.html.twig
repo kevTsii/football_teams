@@ -28,7 +28,7 @@
             </form>
         </div>
         <div>
-            <table class="table table-borderless">
+            <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">Date</th>
@@ -39,15 +39,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for transfer in transfers %}
-                    <tr class="user-select-none team-row">
-                        <th scope="row">{{ transfer.createdAt|format_datetime() }}</th>
-                        <td>{{ transfer.player.name }} {{ transfer.player.surname }}</td>
-                        <td>{{ transfer.buyer.name }}</td>
-                        <td>{{ transfer.seller.name }}</td>
-                        <td>{{ transfer.amount|format_currency('USD') }}</td>
+                {% if transfers is not empty %}
+                    {% for transfer in transfers %}
+                        <tr class="user-select-none">
+                            <td>{{ transfer.createdAt|date('d F Y, h:i') }}</td>
+                            <td>{{ transfer.player.name }} {{ transfer.player.surname }}</td>
+                            <td>{{ transfer.buyer.name }}</td>
+                            <td>{{ transfer.seller.name }}</td>
+                            <td>{{ transfer.amount|format_currency('USD') }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr class="user-select-none">
+                        <td colspan="5">No transfer in the database.</td>
                     </tr>
-                {% endfor %}
+                {% endif %}
                 </tbody>
             </table>
             <div class="pagination d-flex justify-content-end">

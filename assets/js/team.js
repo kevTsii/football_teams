@@ -29,19 +29,24 @@ let playersTable = new DataTable('#players-table', {
     {
       data: null,
       defaultContent: ""
+    },
+    {
+      data: null,
+      defaultContent: ""
     }
   ],
   columnDefs: [
     { targets: '_all', className: "dt-head-center user-select-none", orderable: false },
     { targets: 2,
       render: function (data, type, row){
-        let date = new Date(row.updatedAt);
-        const year = date.getUTCFullYear();
-        const month = date.toLocaleString('en-US', { month: 'long' });
-        const day = date.getUTCDate().toString().padStart(2, '0');
-
-        return `${day} ${month} ${year}`;
-      }}
+        return formatDate(new Date(row.createdAt));
+      }
+    },
+    { targets: 3,
+      render: function (data, type, row){
+        return formatDate(new Date(row.updatedAt));
+      }
+    }
   ]
 });
 $(".dt-length, .dt-search").hide();
@@ -58,3 +63,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
+function formatDate(date){
+  const year = date.getUTCFullYear();
+  const month = date.toLocaleString('en-US', { month: 'long' });
+  const day = date.getUTCDate().toString().padStart(2, '0');
+
+  return `${day} ${month} ${year}`;
+}
