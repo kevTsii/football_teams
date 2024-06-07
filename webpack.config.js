@@ -24,6 +24,7 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('team', './assets/js/team.js')
     .addEntry('player', './assets/js/player.js')
+    .addEntry('transfer', './assets/js/transfer.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

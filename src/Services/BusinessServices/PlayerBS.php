@@ -3,6 +3,7 @@
 namespace App\Services\BusinessServices;
 
 use App\Data\Entity\Player;
+use App\Data\Entity\Team;
 use App\Factory\PlayerFactory;
 use App\Repository\PlayerRepository;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
@@ -92,5 +93,15 @@ class PlayerBS
             $this->logger->error('Failed to delete Player with id : '.$player->getId().' || Fatal Error : '.$e->getMessage().' in '.$e->getFile().' on line '.$e->getLine());
             return false;
         }
+    }
+
+    /**
+     * @param Team $team
+     *
+     * @return array
+     */
+    public function getByTeam(Team $team): array
+    {
+        return $this->repository->getAllQuery('pl', ['team' => $team])->getResult();
     }
 }

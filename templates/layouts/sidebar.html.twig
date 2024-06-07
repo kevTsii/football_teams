@@ -19,7 +19,7 @@
             <div class="fs-5 text-center text-muted text-decoration-underline">Mercato</div>
             <div class="ms-3" id="home-collapse">
                 <ul class="nav nav-pills flex-column mb-auto">
-                    <li><a href="#" class="nav-link link-dark {{ 'app_transfer_create'  == current_path ? 'active' : ''}}">Make a new transfer</a></li>
+                    <li><a href="{{ path('app_transfer_create') }}" class="nav-link link-dark {{ 'app_transfer_create'  == current_path ? 'active' : ''}}">Make a new transfer</a></li>
                     <li><a href="#" class="nav-link link-dark {{ 'app_transfer_index'  == current_path ? 'active' : ''}}">Mercato history</a></li>
                 </ul>
             </div>

@@ -80,4 +80,10 @@ class PlayersController extends AbstractCommonController
             'team' => $player->getTeam()->getId(),
         ]);
     }
+
+    #[Route('/by-team/{team}', name: 'app_players_get_by_teams', methods: ['GET'])]
+    public function getByTeams(Request $request, Team $team): Response
+    {
+        return $this->json($this->playerBS->getByTeam($team));
+    }
 }

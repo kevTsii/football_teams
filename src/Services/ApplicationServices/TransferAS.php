@@ -2,7 +2,8 @@
 
 namespace App\Services\ApplicationServices;
 
-use App\Factory\TransactionFactory;
+use App\Exception\BalanceNotEnoughException;
+use App\Factory\TransferFactory;
 use App\Repository\PlayerRepository;
 use App\Repository\TeamRepository;
 use App\Repository\TransferRepository;
@@ -26,6 +27,7 @@ class TransferAS
      * @param array $parameters
      *
      * @return bool
+     * @throws BalanceNotEnoughException
      */
     public function doTransaction(array $parameters): bool
     {
@@ -34,7 +36,9 @@ class TransferAS
         $seller = $this->teamRepository->find((int)$parameters['seller']);
         $amount = (float)$parameters['amount'];
 
-        if(!$this->transactionBS->canBuy($buyer, $amount)) return false;
+        if(!$this->transferBS->canBuy($buyer, $amount)) {
+            throw new BalanceNotEnoughException("$buyer->getName()'s balance is not enough for the transaction.");
+        }
 
         //the transfer
         $this->transferBS->decreaseBuyerBalance($buyer, $amount);

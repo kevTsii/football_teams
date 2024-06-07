@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Make Transaction{% endblock %}
+
+{% block content %}
+    <div class="container m-auto pe-5 ps-0 w-25">
+        <h2 class="text-center">Make a new transfer</h2>
+        <div class="d-flex justify-content-center mt-3">
+            <div class="w-75">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button id="edit-player-submit" type="submit" class="btn btn-primary {{ 'app_players_show' == app.current_route ? 'd-none' : '' }}">Save changes</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('mercato') }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+        })
+    </script>
+{% endblock %}
