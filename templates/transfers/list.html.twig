@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Teams{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('team') }}
+{% endblock %}
+
+{% block content %}
+    <div class="container text-center m-auto pe-5 ps-0">
+        <h3>List of transfers</h3>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div class="mb-3 d-flex align-items-center justify-content-end mt-3">
+            <form action="" class="col-3 d-flex justify-content-end">
+                    <div class="me-3 mt-1">
+                        <label for="content-number-limit" class="form-label align-middle">Limit</label>
+                    </div>
+                    <select name="limit" id="content-number-limit" class="form-select w-50" onchange="this.form.submit()">
+                        <option value="10" {{ 10 == transfers.maxPerPage ? 'selected' : '' }}>10</option>
+                        <option value="25" {{ 25 == transfers.maxPerPage ? 'selected' : '' }}>25</option>
+                        <option value="50" {{ 50 == transfers.maxPerPage ? 'selected' : '' }}>50</option>
+                        <option value="100" {{ 100 == transfers.maxPerPage ? 'selected' : '' }}>100</option>
+                    </select>
+            </form>
+        </div>
+        <div>
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Player</th>
+                        <th scope="col">Buyer</th>
+                        <th scope="col">Seller</th>
+                        <th scope="col">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for transfer in transfers %}
+                    <tr class="user-select-none team-row">
+                        <th scope="row">{{ transfer.createdAt|format_datetime() }}</th>
+                        <td>{{ transfer.player.name }} {{ transfer.player.surname }}</td>
+                        <td>{{ transfer.buyer.name }}</td>
+                        <td>{{ transfer.seller.name }}</td>
+                        <td>{{ transfer.amount|format_currency('USD') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="pagination d-flex justify-content-end">
+                {{ pagerfanta(transfers, 'twitter_bootstrap5') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

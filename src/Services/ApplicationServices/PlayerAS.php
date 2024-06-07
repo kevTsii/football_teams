@@ -32,7 +32,7 @@ class PlayerAS
                 (int)$parameters['team']
             )->getCurrentPageResults(),
             'json',
-            ['groups' => ['no-team-serialized']]);
+            ['groups' => ['player-info-serialized']]);
 
         $totalRows = $this->playerRepository->countAll('p');
         $toReturn['recordsTotal'] = $totalRows;

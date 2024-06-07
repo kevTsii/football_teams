@@ -15,15 +15,15 @@ class Player
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups('no-team-serialized')]
+    #[Groups('player-info-serialized')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups('no-team-serialized')]
+    #[Groups('player-info-serialized')]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups('no-team-serialized')]
+    #[Groups('player-info-serialized')]
     private ?string $surname = null;
 
     #[ORM\ManyToOne(inversedBy: 'players')]
@@ -31,11 +31,11 @@ class Player
     private ?Team $team = null;
 
     #[ORM\Column]
-    #[Groups('no-team-serialized')]
+    #[Groups('player-info-serialized')]
     private ?\DateTime $createdAt;
 
     #[ORM\Column(nullable: true)]
-    #[Groups('no-team-serialized')]
+    #[Groups('player-info-serialized')]
     private ?\DateTime $updatedAt = null;
 
     /**
@@ -119,12 +119,12 @@ class Player
     /**
      * @return Collection<int, Transfer>
      */
-    public function getTransactions(): Collection
+    public function getTransfers(): Collection
     {
         return $this->transfers;
     }
 
-    public function addTransaction(Transfer $transfer): static
+    public function addTransfer(Transfer $transfer): static
     {
         if (!$this->transfers->contains($transfer)) {
             $this->transfers->add($transfer);
@@ -134,7 +134,7 @@ class Player
         return $this;
     }
 
-    public function removeTransaction(Transfer $transfer): static
+    public function removeTransfer(Transfer $transfer): static
     {
         if ($this->transfers->removeElement($transfer)) {
             // set the owning side to null (unless already changed)
@@ -144,5 +144,10 @@ class Player
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName().' '.$this->getSurname();
     }
 }

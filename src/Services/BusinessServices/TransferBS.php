@@ -51,9 +51,8 @@ class TransferBS
     public function getAllTransactionsPaginate(int $page, int $limit): iterable
     {
         return (new Pagerfanta(new QueryAdapter($this->repository->getAllQuery('tr'))))
-            ->setCurrentPage($page)
             ->setMaxPerPage($limit)
-            ->getCurrentPageResults();
+            ->setCurrentPage($page);
     }
 
     /**

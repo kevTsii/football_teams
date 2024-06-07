@@ -3,6 +3,7 @@
 namespace App\Services\ApplicationServices;
 
 use App\Exception\BalanceNotEnoughException;
+use App\Exception\SameTeamException;
 use App\Factory\TransferFactory;
 use App\Repository\PlayerRepository;
 use App\Repository\TeamRepository;
@@ -27,7 +28,7 @@ class TransferAS
      * @param array $parameters
      *
      * @return bool
-     * @throws BalanceNotEnoughException
+     * @throws SameTeamException|BalanceNotEnoughException
      */
     public function doTransaction(array $parameters): bool
     {
@@ -37,7 +38,11 @@ class TransferAS
         $amount = (float)$parameters['amount'];
 
         if(!$this->transferBS->canBuy($buyer, $amount)) {
-            throw new BalanceNotEnoughException("$buyer->getName()'s balance is not enough for the transaction.");
+            throw new BalanceNotEnoughException($buyer->getName() . "'s balance is not enough for the transaction.");
+        }
+
+        if($seller->getId() === $buyer->getId()){
+            throw new SameTeamException($seller->getName()." can not sell a player to itself.");
         }
 
         //the transfer

@@ -44,7 +44,7 @@ class TransferType extends AbstractType
             ])
             ->add('player', EntityType::class, [
                 'class' => Player::class,
-                'choices' => [],
+                'placeholder' => "",
                 'row_attr' => [
                     'class' => "form-group mb-3"
                 ],
