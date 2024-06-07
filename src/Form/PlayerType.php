@@ -12,7 +12,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class PlayerType extends AbstractType
 {
 
-    public function __construct(private readonly RequestStack $requestStack)
+    public function __construct(
+        private readonly RequestStack $requestStack
+    )
     {
     }
 

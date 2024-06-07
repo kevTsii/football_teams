@@ -39,15 +39,15 @@ class Team
     private Collection $players;
 
     /**
-     * @var Collection<int, Transaction>
+     * @var Collection<int, Transfer>
      */
-    #[ORM\OneToMany(targetEntity: Transaction::class, mappedBy: 'seller')]
+    #[ORM\OneToMany(targetEntity: Transfer::class, mappedBy: 'seller')]
     private Collection $sells;
 
     /**
-     * @var Collection<int, Transaction>
+     * @var Collection<int, Transfer>
      */
-    #[ORM\OneToMany(targetEntity: Transaction::class, mappedBy: 'buyer')]
+    #[ORM\OneToMany(targetEntity: Transfer::class, mappedBy: 'buyer')]
     private Collection $purchases;
 
     public function __construct()
@@ -154,14 +154,14 @@ class Team
     }
 
     /**
-     * @return Collection<int, Transaction>
+     * @return Collection<int, Transfer>
      */
     public function getSells(): Collection
     {
         return $this->sells;
     }
 
-    public function addSell(Transaction $sell): static
+    public function addSell(Transfer $sell): static
     {
         if (!$this->sells->contains($sell)) {
             $this->sells->add($sell);
@@ -171,7 +171,7 @@ class Team
         return $this;
     }
 
-    public function removeSell(Transaction $sell): static
+    public function removeSell(Transfer $sell): static
     {
         if ($this->sells->removeElement($sell)) {
             // set the owning side to null (unless already changed)
@@ -184,29 +184,29 @@ class Team
     }
 
     /**
-     * @return Collection<int, Transaction>
+     * @return Collection<int, Transfer>
      */
     public function getPurchases(): Collection
     {
         return $this->purchases;
     }
 
-    public function addPurchase(Transaction $purchase): static
+    public function addPurchase(Transfer $purchase): static
     {
         if (!$this->purchases->contains($purchase)) {
             $this->purchases->add($purchase);
-            $purchase->setBuyers($this);
+            $purchase->setBuyer($this);
         }
 
         return $this;
     }
 
-    public function removePurchase(Transaction $purchase): static
+    public function removePurchase(Transfer $purchase): static
     {
         if ($this->purchases->removeElement($purchase)) {
             // set the owning side to null (unless already changed)
-            if ($purchase->getBuyers() === $this) {
-                $purchase->setBuyers(null);
+            if ($purchase->getBuyer() === $this) {
+                $purchase->setBuyer(null);
             }
         }
 

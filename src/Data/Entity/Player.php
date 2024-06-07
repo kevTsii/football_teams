@@ -39,14 +39,14 @@ class Player
     private ?\DateTime $updatedAt = null;
 
     /**
-     * @var Collection<int, Transaction>
+     * @var Collection<int, Transfer>
      */
-    #[ORM\OneToMany(targetEntity: Transaction::class, mappedBy: 'player')]
-    private Collection $transactions;
+    #[ORM\OneToMany(targetEntity: Transfer::class, mappedBy: 'player')]
+    private Collection $transfers;
 
     public function __construct()
     {
-        $this->transactions = new ArrayCollection();
+        $this->transfers = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
     }
@@ -117,29 +117,29 @@ class Player
     }
 
     /**
-     * @return Collection<int, Transaction>
+     * @return Collection<int, Transfer>
      */
     public function getTransactions(): Collection
     {
-        return $this->transactions;
+        return $this->transfers;
     }
 
-    public function addTransaction(Transaction $transaction): static
+    public function addTransaction(Transfer $transfer): static
     {
-        if (!$this->transactions->contains($transaction)) {
-            $this->transactions->add($transaction);
-            $transaction->setPlayer($this);
+        if (!$this->transfers->contains($transfer)) {
+            $this->transfers->add($transfer);
+            $transfer->setPlayer($this);
         }
 
         return $this;
     }
 
-    public function removeTransaction(Transaction $transaction): static
+    public function removeTransaction(Transfer $transfer): static
     {
-        if ($this->transactions->removeElement($transaction)) {
+        if ($this->transfers->removeElement($transfer)) {
             // set the owning side to null (unless already changed)
-            if ($transaction->getPlayer() === $this) {
-                $transaction->setPlayer(null);
+            if ($transfer->getPlayer() === $this) {
+                $transfer->setPlayer(null);
             }
         }
 

@@ -2,19 +2,19 @@
 
 namespace App\Data\Entity;
 
-use App\Repository\TransactionRepository;
+use App\Repository\TransferRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Table(name: 'transactions')]
-#[ORM\Entity(repositoryClass: TransactionRepository::class)]
-class Transaction
+#[ORM\Table(name: 'transfers')]
+#[ORM\Entity(repositoryClass: TransferRepository::class)]
+class Transfer
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'transactions')]
+    #[ORM\ManyToOne(inversedBy: 'transfers')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Player $player = null;
 

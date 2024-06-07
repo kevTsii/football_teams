@@ -5,15 +5,15 @@ namespace App\Services\ApplicationServices;
 use App\Factory\TransactionFactory;
 use App\Repository\PlayerRepository;
 use App\Repository\TeamRepository;
-use App\Repository\TransactionRepository;
-use App\Services\BusinessServices\TransactionBS;
+use App\Repository\TransferRepository;
+use App\Services\BusinessServices\TransferBS;
 
-class TransactionAS
+class TransferAS
 {
     public function __construct(
-        private readonly TransactionFactory $transactionFactory,
-        private readonly TransactionRepository $transactionRepository,
-        private readonly TransactionBS $transactionBS,
+        private readonly TransferFactory $transferFactory,
+        private readonly TransferRepository $transferRepository,
+        private readonly TransferBS $transferBS,
         private readonly TeamRepository $teamRepository,
         private readonly PlayerRepository $playerRepository,
     )
@@ -21,7 +21,7 @@ class TransactionAS
     }
 
     /**
-     * The transaction processus.
+     * The transfer processus.
      *
      * @param array $parameters
      *
@@ -36,19 +36,19 @@ class TransactionAS
 
         if(!$this->transactionBS->canBuy($buyer, $amount)) return false;
 
-        //the transaction
-        $this->transactionBS->decreaseBuyerBalance($buyer, $amount);
-        $this->transactionBS->increaseSellerBalance($seller, $amount);
+        //the transfer
+        $this->transferBS->decreaseBuyerBalance($buyer, $amount);
+        $this->transferBS->increaseSellerBalance($seller, $amount);
         $player->setTeam($buyer);
 
-        //Save the transaction in the DataBase
-        $transaction = $this->transactionFactory->createTransaction($parameters);
+        //Save the transfer in the DataBase
+        $transfer = $this->transferFactory->createTransaction($parameters);
 
         //Save all those modifications
         $this->teamRepository->save($buyer);
         $this->teamRepository->save($seller);
         $this->playerRepository->save($player);
-        $this->transactionRepository->save($transaction, true);
+        $this->transferRepository->save($transfer, true);
 
         return true;
     }
