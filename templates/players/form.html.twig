@@ -13,8 +13,8 @@
 {% block content %}
     <div class="container m-auto pe-5 ps-0 w-25">
         <div class="d-flex justify-content-end mb-2">
-            <button class="btn btn-success edit-button">{{ 'edit.button'|trans }}</button>
             {% if isEdit %}
+                <button class="btn btn-success edit-button">{{ 'edit.button'|trans }}</button>
                 <a href="{{ path('app_players_delete', {'player': player.id}) }}" class="btn btn-danger ms-2"><i class="fa fa-trash"></i></a>
             {% endif %}
         </div>

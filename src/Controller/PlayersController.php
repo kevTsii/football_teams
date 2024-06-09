@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Data\Constants\Context;
+use App\Data\Constants\Translation;
 use App\Data\Entity\Player;
 use App\Data\Entity\Team;
 use App\Factory\TranslatorTrait;
@@ -51,7 +52,11 @@ class PlayersController extends AbstractCommonController
                 ['team' => $teamId]
             ));
 
-            $this->addFlash('success', 'Player added successfully.');
+            $this->addFlash('success', $this->translate(
+                'success.create',
+                ['%context%' => 'player'],
+                Translation::FLASH_MESSAGES_DOMAIN
+            ));
 
             return $this->redirectToRoute('app_teams_show', ['team' => $teamId]);
         }
@@ -68,6 +73,12 @@ class PlayersController extends AbstractCommonController
         if($form->isSubmitted() && $form->isValid()){
             $this->playerBS->updatePlayer($player, $request->request->all()['player']);
 
+            $this->addFlash('success', $this->translate(
+                'success.edit',
+                ['%name%' => $player->getSurname().'\'s information'],
+                Translation::FLASH_MESSAGES_DOMAIN
+            ));
+
             return $this->redirectToRoute('app_teams_show', ['team' => $player->getTeam()->getId()]);
         }
 
@@ -79,7 +90,11 @@ class PlayersController extends AbstractCommonController
     {
         $this->playerBS->deletePlayer($player);
 
-        $this->addFlash('success', 'Player deleted successfully');
+        $this->addFlash('success', $this->translate(
+            'success.delete',
+            ['%context%' => 'player'],
+            Translation::FLASH_MESSAGES_DOMAIN
+        ));
 
         return $this->redirectToRoute('app_teams_show', [
             'team' => $player->getTeam()->getId(),
