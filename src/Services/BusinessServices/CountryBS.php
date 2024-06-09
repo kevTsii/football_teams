@@ -10,6 +10,7 @@ use App\Repository\CountryRepository;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class CountryBS
 {
@@ -18,6 +19,7 @@ class CountryBS
     public function __construct(
         private readonly CountryRepository $repository,
         private readonly LoggerInterface $logger,
+        private readonly ParameterBagInterface $parameterBag
     )
     {
     }
@@ -100,5 +102,29 @@ class CountryBS
         }
 
         $this->repository->delete($country, true);
+    }
+
+    /**
+     * Read the json file countries.json that will be imported inside DataBase
+     *
+     * @return array
+     * @throws \Exception
+     */
+    public function readJsonFile(): array
+    {
+        $sFile = $this->parameterBag->get('countries_json');
+
+        if(!file_exists($sFile)){
+            throw new \Exception('The file '.$sFile.' does not exist.');
+        }
+
+        $sContent = file_get_contents($sFile);
+        if($sContent){
+            $aContent = json_decode($sContent, true);
+        }else{
+            $aContent = [];
+        }
+
+        return $aContent;
     }
 }

@@ -26,7 +26,7 @@ class Team
     #[ORM\JoinColumn(nullable: false)]
     private ?Country $country = null;
 
-    #[ORM\Column]
+    #[ORM\Column(options: ["default" => 'CURRENT_TIMESTAMP'])]
     private ?\DateTime $createdAt;
 
     #[ORM\Column(nullable: true)]

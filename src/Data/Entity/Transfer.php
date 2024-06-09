@@ -29,7 +29,7 @@ class Transfer
     #[ORM\Column]
     private ?float $amount = null;
 
-    #[ORM\Column]
+    #[ORM\Column(options: ["default" => 'CURRENT_TIMESTAMP'])]
     private ?\DateTime $createdAt;
 
     #[ORM\Column(nullable: true)]

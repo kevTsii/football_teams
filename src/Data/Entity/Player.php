@@ -30,7 +30,7 @@ class Player
     #[ORM\JoinColumn(nullable: false)]
     private ?Team $team = null;
 
-    #[ORM\Column]
+    #[ORM\Column(options: ["default" => 'CURRENT_TIMESTAMP'])]
     #[Groups('player-info-serialized')]
     private ?\DateTime $createdAt;
 
