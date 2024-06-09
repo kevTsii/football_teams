@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Data\Constants\Context;
+use App\Data\Constants\Translation;
 use App\Data\Entity\Team;
 use App\Factory\TranslatorTrait;
 use App\Form\TeamType;
@@ -48,6 +49,12 @@ class TeamsController extends AbstractCommonController
                 'moneyBalance' => $team->getMoneyBalance(),
             ]);
 
+            $this->addFlash('success', $this->translate(
+                'success.create',
+                ['%context%' => 'team'],
+                Translation::FLASH_MESSAGES_DOMAIN
+            ));
+
             return $this->redirectToRoute('app_teams_show', ['team' => $team->getId()]);
         }
 
@@ -71,6 +78,12 @@ class TeamsController extends AbstractCommonController
         if($form->isSubmitted() && $form->isValid()){
             $team = $this->teamBS->updateTeam($team, $request->request->all()['team']);
 
+            $this->addFlash('success', $this->translate(
+                'success.edit',
+                ['%name%' => $team->getName()],
+                Translation::FLASH_MESSAGES_DOMAIN
+            ));
+
             return $this->redirectToRoute('app_teams_show', ['team' => $team->getId()]);
         }
 
@@ -82,9 +95,14 @@ class TeamsController extends AbstractCommonController
     {
         try{
             $this->teamBS->deleteTeam($team);
-            $this->addFlash('success', 'message');
 
-            return $this->redirectToRoute('app_teams_show', ['team' => $team->getId()]);
+            $this->addFlash('success', $this->translate(
+                'success.delete',
+                ['%context%' => 'team'],
+                Translation::FLASH_MESSAGES_DOMAIN
+            ));
+
+            return $this->redirectToRoute('app_teams_index');
         }catch(\Exception $e){
             $this->addFlash('error', $e->getMessage());
 

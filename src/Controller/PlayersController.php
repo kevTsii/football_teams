@@ -75,7 +75,7 @@ class PlayersController extends AbstractCommonController
 
             $this->addFlash('success', $this->translate(
                 'success.edit',
-                ['%name%' => $player->getSurname().'\'s information'],
+                ['%name%' => $player->getSurname()],
                 Translation::FLASH_MESSAGES_DOMAIN
             ));
 

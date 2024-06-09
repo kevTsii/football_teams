@@ -1,4 +1,4 @@
 success:
   create: '%context% created successfully.'
-  edit: '%name% got edited successfully.'
-  delete: '%context% deleted successfully'
+  edit: "%name%'s information got edited successfully."
+  delete: '%context% deleted successfully.'

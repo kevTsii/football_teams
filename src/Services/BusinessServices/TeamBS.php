@@ -2,6 +2,7 @@
 
 namespace App\Services\BusinessServices;
 
+use App\Data\Constants\Translation;
 use App\Data\Entity\Team;
 use App\Exception\NotEmptyException;
 use App\Factory\TeamFactory;
@@ -90,7 +91,11 @@ class TeamBS
     public function deleteTeam(Team $team): void
     {
         if(count($team->getPlayers()) > 0) {
-            throw new NotEmptyException('The team contains some players. Delete or transfer those players before deleting the team.');
+            throw new NotEmptyException($this->translate(
+                'exception.not_empty',
+                ['%name%' => $team->getName()],
+                Translation::TEAM_DOMAIN
+            ));
         }
 
         $this->repository->delete($team, true);
