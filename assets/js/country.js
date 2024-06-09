@@ -1,3 +1,4 @@
+import { toggleEdit } from './common'
 
 document.addEventListener('DOMContentLoaded', function () {
   let rows = document.querySelectorAll('.country-row');
@@ -7,8 +8,5 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  $('.edit-button').click(function() {
-    $('.form-control').attr('disabled', false)
-    $('#edit-country-submit').removeClass('d-none')
-  })
+  toggleEdit($('#edit-country-submit'))
 });
