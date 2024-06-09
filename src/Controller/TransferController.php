@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Data\Constants\Context;
+use App\Data\Constants\Translation;
 use App\Data\Entity\Transfer;
 use App\Factory\TranslatorTrait;
 use App\Form\TransferType;
@@ -40,7 +41,12 @@ class TransferController extends AbstractCommonController
         if($form->isSubmitted() && $form->isValid()){
             try{
                 $this->transferAS->doTransaction($request->request->all()['transfer']);
-                $this->addFlash('success', 'Transaction done successfully.');
+
+                $this->addFlash('success', $this->translate(
+                    'flash.success.create',
+                    [],
+                    Translation::TRANSFER_DOMAIN
+                ));
 
                 return $this->redirectToRoute('app_transfer_list');
             }catch(\Exception $e){

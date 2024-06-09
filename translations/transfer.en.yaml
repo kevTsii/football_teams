@@ -1,4 +1,8 @@
 table:
+  player: Player
+  buyer: Buyer
+  seller: Seller
+  amount: Amount
 
 
 form:
@@ -8,9 +12,8 @@ form:
 
 flash:
   success:
-    create:
-    edit:
-    delete:
-  error:
-    balance:
-    same_team:
+    create: Transaction done successfully.
+
+exception:
+  balance_not_enough: "%name%'s balance is not enough for the transaction."
+  same_team: "%name% can not sell a player to itself."
