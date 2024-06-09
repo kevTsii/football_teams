@@ -2,6 +2,7 @@
 
 namespace App\Services\BusinessServices;
 
+use App\Data\Constants\Translation;
 use App\Data\Entity\Country;
 use App\Exception\NotEmptyException;
 use App\Factory\TranslatorTrait;
@@ -89,7 +90,13 @@ class CountryBS
     public function deleteCountry(Country $country): void
     {
         if(count($country->getTeams()) > 0) {
-            throw new NotEmptyException( $country->getName().' may contains some teams. Delete those teams before deleting the country.');
+            throw new NotEmptyException(
+                $this->translate(
+                    'exception.not_empty',
+                    ['%name%' => $country->getName()],
+                    Translation::COUNTRY_DOMAIN
+                )
+            );
         }
 
         $this->repository->delete($country, true);

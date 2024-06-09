@@ -9,3 +9,6 @@ edit:
 submit:
   create: Create
   edit: Save changes
+
+table:
+  empty: No %context% in the database.

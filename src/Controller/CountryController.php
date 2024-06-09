@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Data\Constants\Context;
+use App\Data\Constants\Translation;
 use App\Data\Entity\Country;
 use App\Factory\TranslatorTrait;
 use App\Form\CountryType;
@@ -43,7 +44,12 @@ class CountryController extends AbstractCommonController
         if($form->isSubmitted() && $form->isValid()){
             try{
                 $this->countryBS->createCountry($country->getName());
-                $this->addFlash('success', 'Country created successfully');
+
+                $this->addFlash('success', $this->translate(
+                    'success.create',
+                    ['%context%' => 'country'],
+                    Translation::FLASH_MESSAGES_DOMAIN
+                ));
 
                 return $this->redirectToRoute('app_countries_index');
             }catch(\Exception $e){
@@ -67,7 +73,12 @@ class CountryController extends AbstractCommonController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $this->countryBS->updateCountry($country, $request->request->all()['country']['name']);
-            $this->addFlash('success', 'Country edited successfully.');
+
+            $this->addFlash('success', $this->translate(
+                'success.edit',
+                ['%name%' => $country->getName()],
+                Translation::FLASH_MESSAGES_DOMAIN
+            ));
 
             return $this->redirectToRoute('app_countries_index');
         }
@@ -85,7 +96,12 @@ class CountryController extends AbstractCommonController
     {
         try{
             $this->countryBS->deleteCountry($country);
-            $this->addFlash('success', 'Country deleted successfully.');
+
+            $this->addFlash('success', $this->translate(
+                'success.delete',
+                ['%context%' => 'country'],
+                Translation::FLASH_MESSAGES_DOMAIN
+            ));
 
             return $this->redirectToRoute('app_countries_index');
         }catch (\Exception $e){

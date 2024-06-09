@@ -2,15 +2,5 @@ country:
   singular: country
   plural: countries
 
-table:
-  empty: No %context% in the database.
-
-flash:
-  success:
-    create:
-    edit:
-    delete:
-  error:
-    create:
-    edit:
-    delete:
+exception:
+  not_empty: '%name% may contains some teams. Delete those teams before deleting it.'

@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Countries{% endblock %}
+{% trans_default_domain('country') %}
+
+{% set title = 'country.plural'|trans|capitalize %}
+
+{% block title %}{{ title }}{% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('team') }}
@@ -8,16 +12,16 @@
 
 {% block content %}
     <div class="container text-center m-auto pe-5 ps-0">
-        <h3>Countries</h3>
+        <h3>{{ title }}</h3>
         {% for message in app.flashes('success') %}
             <div class="alert alert-success" role="alert">
-                {{ message }}
+                {{ message|capitalize }}
             </div>
         {% endfor %}
         <div class="mb-3 d-flex align-items-center justify-content-end mt-3">
             <form action="" class="col-3 d-flex justify-content-end">
                 <div class="me-3 mt-1">
-                    <label for="content-number-limit" class="form-label align-middle">Limit</label>
+                    <label for="content-number-limit" class="form-label align-middle">{{ 'limit'|trans({}, 'app')|capitalize }}</label>
                 </div>
                 <select name="limit" id="content-number-limit" class="form-select w-50" onchange="this.form.submit()">
                     <option value="10" {{ 10 == countries.maxPerPage ? 'selected' : '' }}>10</option>
@@ -33,7 +37,7 @@
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Country</th>
+                        <th scope="col">{{ 'country.singular'|trans|capitalize }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -46,7 +50,7 @@
                         {% endfor %}
                     {% else %}
                         <tr class="user-select-none">
-                            <td colspan="5">No country in the database.</td>
+                            <td colspan="5">{{ 'table.empty'|trans({'%context%': 'country.singular'|trans}, 'form') }}</td>
                         </tr>
                     {% endif %}
                     </tbody>
