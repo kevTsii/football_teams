@@ -53,7 +53,7 @@ class PlayersController extends AbstractCommonController
             return $this->redirectToRoute('app_teams_show', ['team' => $teamId]);
         }
 
-        return $this->renderFormView($player, Context::PLAYER_CONTEXT,  $form, 'players/form.twig');
+        return $this->renderFormView($player, Context::PLAYER_CONTEXT,  $form, 'players/form.html.twig');
     }
 
     #[Route('/show/{player}', name: 'app_players_show', methods: ['GET', 'POST'])]
@@ -68,7 +68,7 @@ class PlayersController extends AbstractCommonController
             return $this->redirectToRoute('app_teams_show', ['team' => $player->getTeam()->getId()]);
         }
 
-        return $this->renderFormView($player, Context::PLAYER_CONTEXT,  $form, 'players/form.twig');
+        return $this->renderFormView($player, Context::PLAYER_CONTEXT,  $form, 'players/form.html.twig');
     }
 
     #[Route('/delete/{player}', name: 'app_players_delete', methods: ['GET', 'DELETE'])]

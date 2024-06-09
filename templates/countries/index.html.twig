@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Countries{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('team') }}
+{% endblock %}
+
+{% block content %}
+    <div class="container text-center m-auto pe-5 ps-0">
+        <h3>Countries</h3>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div class="mb-3 d-flex align-items-center justify-content-end mt-3">
+            <form action="" class="col-3 d-flex justify-content-end">
+                <div class="me-3 mt-1">
+                    <label for="content-number-limit" class="form-label align-middle">Limit</label>
+                </div>
+                <select name="limit" id="content-number-limit" class="form-select w-50" onchange="this.form.submit()">
+                    <option value="10" {{ 10 == countries.maxPerPage ? 'selected' : '' }}>10</option>
+                    <option value="25" {{ 25 == countries.maxPerPage ? 'selected' : '' }}>25</option>
+                    <option value="50" {{ 50 == countries.maxPerPage ? 'selected' : '' }}>50</option>
+                    <option value="100" {{ 100 == countries.maxPerPage ? 'selected' : '' }}>100</option>
+                </select>
+            </form>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="w-50">
+                <table class="table table-clickable-row">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Country</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if countries is not empty %}
+                        {% for country in countries %}
+                            <tr class="user-select-none team-row" data-href="{{ path('app_countries_show', {country: country.id}) }}">
+                                <th scope="row">{{ country.id }}</th>
+                                <td>{{ country.name }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr class="user-select-none">
+                            <td colspan="5">No country in the database.</td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+                <div class="pagination d-flex justify-content-end">
+                    {{ pagerfanta(countries, 'twitter_bootstrap5') }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -49,9 +49,8 @@ class CountryBS
     public function getAllCountriesPaginate(int $page, int $limit): iterable
     {
         return (new Pagerfanta(new QueryAdapter($this->repository->getAllQuery('c'))))
-            ->setCurrentPage($page)
             ->setMaxPerPage($limit)
-            ->getCurrentPageResults();
+            ->setCurrentPage($page);
     }
 
     /**
