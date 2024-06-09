@@ -14,8 +14,8 @@
     <div class="container text-center m-auto pe-5 ps-0">
         <h2>{{ team.name }}</h2>
         <div class="d-flex justify-content-end mb-4">
-            <a href="{{ path('app_players_create', {'team': team.id}) }}" class=" btn btn-warning edit-button me-2"><i class="fa fa-plus"></i>Add new player</a>
-            <a href="{{ path('app_teams_update', {'team': team.id}) }}" class=" btn btn-success edit-button me-2">Edit</a>
+            <a href="{{ path('app_players_create', {'team': team.id}) }}" class=" btn btn-warning edit-button me-2"><i class="fa fa-plus"></i>{{ 'form.add_player'|trans({}, 'team') }}</a>
+            <a href="{{ path('app_teams_update', {'team': team.id}) }}" class=" btn btn-success edit-button me-2">{{ 'edit.button'|trans({}, 'form') }}</a>
             <a href="{{ path('app_teams_delete', {'team': team.id}) }}" class=" btn btn-danger edit-button"><i class="fa fa-trash"></i></a>
         </div>
         <div class="d-block">
@@ -32,35 +32,35 @@
             <div class="d-flex justify-content-between">
                 <div class="col-3">
                     <fieldset class="fieldset-with-legend rounded-3">
-                        <legend>Money Balance</legend>
+                        <legend>{{ 'team.property.money_balance'|trans({}, 'team') }}</legend>
                         <p class="fs-4 mb-0">{{ team.moneyBalance|format_currency('USD') }}</p>
                     </fieldset>
                 </div>
                 <div class="col-3">
                     <fieldset class="fieldset-with-legend rounded-3">
-                        <legend>Country</legend>
+                        <legend>{{ 'team.property.country'|trans({}, 'team') }}</legend>
                         <p class="fs-4 mb-0">{{ team.country.name }}</p>
                     </fieldset>
                 </div>
             </div>
             <div class="text-start mt-4">
-                <h4 class="text-decoration-underline">Players</h4>
+                <h4 class="text-decoration-underline">{{ 'team.property.players'|trans({}, 'team') }}</h4>
                 <div>
                     <table id="players-table" class="text-center">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Surname</th>
-                                <th>Career start</th>
-                                <th>Joined club on</th>
+                                <th>{{ 'player.property.name'|trans({}, 'player') }}</th>
+                                <th>{{ 'player.property.surname'|trans({}, 'player') }}</th>
+                                <th>{{ 'player.property.career_start'|trans({}, 'player') }}</th>
+                                <th>{{ 'player.property.joined_on'|trans({}, 'player') }}</th>
                             </tr>
                         </thead>
                         <tfoot>
                         <tr>
-                            <th>Name</th>
-                            <th>Surname</th>
-                            <th>Career start</th>
-                            <th>Joined club on</th>
+                            <th>{{ 'player.property.name'|trans({}, 'player') }}</th>
+                            <th>{{ 'player.property.surname'|trans({}, 'player') }}</th>
+                            <th>{{ 'player.property.career_start'|trans({}, 'player') }}</th>
+                            <th>{{ 'player.property.joined_on'|trans({}, 'player') }}</th>
                         </tr>
                         </tfoot>
                     </table>

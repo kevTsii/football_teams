@@ -1,3 +1,14 @@
+team:
+  singular: team
+  plural: teams
+  property:
+    name: Name
+    money_balance: Money Balance
+    country: Country
+    players: Players
 
 exception:
   not_empty: '%name% may contain some players. Delete or transfer those players before deleting the team.'
+
+form:
+  add_player: Add new player

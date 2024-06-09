@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Homepage{% endblock %}
+{% trans_default_domain('app') %}
+
+{% block title %}{{ 'app.home.title'|trans }}{% endblock %}
 
 {% block content %}
     <div class="container text-center m-auto">
-        <h1 class="display-4 text-dark fw-bold">Welcome to Football Teams</h1>
-        <p class="lead text-secondary mt-3">I am an application which manages transfers between football teams.</p>
-        <a href="{{ path('app_teams_create') }}" class="btn btn-primary mt-4">Create a new Team</a>
+        <h1 class="display-4 text-dark fw-bold">{{ 'app.home.welcome'|trans({'%application_name%': application_name}) }}</h1>
+        <p class="lead text-secondary mt-3">{{ 'app.home.description'|trans }}</p>
+        <a href="{{ path('app_teams_create') }}" class="btn btn-primary mt-4">{{ 'create.content_title'|trans({'%context%': 'team'}, 'form') }}</a>
     </div>
 {% endblock %}

@@ -2,34 +2,34 @@
 
 <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; min-height: 100vh">
     <a href="{{ path('app_home') }}" class="d-flex justify-content-center link-dark text-decoration-none">
-        <div class="fs-4 text-center">Football Teams</div>
+        <div class="fs-4 text-center">{{ application_name }}</div>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="mb-1">
-            <div class="fs-5 text-center text-muted text-decoration-underline">Teams</div>
+            <div class="fs-5 text-center text-muted text-decoration-underline">{{ 'team.plural'|trans({}, 'team')|capitalize }}</div>
             <div class="ms-3" id="home-collapse">
                 <ul class="nav nav-pills flex-column mb-auto">
-                    <li><a href="{{ path('app_teams_index') }}" class="nav-link link-dark {{ 'app_teams_index' == current_path ? 'active' : '' }}">List of teams</a></li>
-                    <li><a href="{{ path('app_teams_create') }}" class="nav-link link-dark {{ 'app_teams_create' == current_path ? 'active' : '' }}">Create a new team</a></li>
+                    <li><a href="{{ path('app_teams_index') }}" class="nav-link link-dark {{ 'app_teams_index' == current_path ? 'active' : '' }}">{{ 'app.sidebar.list.team'|trans({}, 'app') }}</a></li>
+                    <li><a href="{{ path('app_teams_create') }}" class="nav-link link-dark {{ 'app_teams_create' == current_path ? 'active' : '' }}">{{ 'create.content_title'|trans({'%context%': 'team'}, 'form') }}</a></li>
                 </ul>
             </div>
         </li>
         <li class="mb-1">
-            <div class="fs-5 text-center text-muted text-decoration-underline">Mercato</div>
+            <div class="fs-5 text-center text-muted text-decoration-underline">{{ 'sidebar.header'|trans({}, 'transfer')|capitalize }}</div>
             <div class="ms-3" id="home-collapse">
                 <ul class="nav nav-pills flex-column mb-auto">
-                    <li><a href="{{ path('app_transfer_create') }}" class="nav-link link-dark {{ 'app_transfer_create'  == current_path ? 'active' : ''}}">Make a new transfer</a></li>
-                    <li><a href="{{ path('app_transfer_list') }}" class="nav-link link-dark {{ 'app_transfer_list'  == current_path ? 'active' : ''}}">Mercato history</a></li>
+                    <li><a href="{{ path('app_transfer_create') }}" class="nav-link link-dark {{ 'app_transfer_create'  == current_path ? 'active' : ''}}">{{ 'sidebar.new_transfer'|trans({}, 'transfer') }}</a></li>
+                    <li><a href="{{ path('app_transfer_list') }}" class="nav-link link-dark {{ 'app_transfer_list'  == current_path ? 'active' : ''}}">{{ 'app.sidebar.list.transfer'|trans({}, 'app') }}</a></li>
                 </ul>
             </div>
         </li>
         <li class="mb-1">
-            <div class="fs-5 text-center text-muted text-decoration-underline">Countries</div>
+            <div class="fs-5 text-center text-muted text-decoration-underline">{{ 'country.plural'|trans({}, 'country')|capitalize }}</div>
             <div class="ms-3" id="home-collapse">
                 <ul class="nav nav-pills flex-column mb-auto">
-                    <li><a href="{{ path('app_countries_index') }}" class="nav-link link-dark {{ 'app_countries_index' == current_path ? 'active' : '' }}">List of countries</a></li>
-                    <li><a href="{{ path('app_countries_create') }}" class="nav-link link-dark {{ 'app_countries_create' == current_path ? 'active' : '' }}">Create a new country</a></li>
+                    <li><a href="{{ path('app_countries_index') }}" class="nav-link link-dark {{ 'app_countries_index' == current_path ? 'active' : '' }}">{{ 'app.sidebar.list.country'|trans({}, 'app') }}</a></li>
+                    <li><a href="{{ path('app_countries_create') }}" class="nav-link link-dark {{ 'app_countries_create' == current_path ? 'active' : '' }}">{{ 'create.content_title'|trans({'%context%': 'country'}, 'form') }}</a></li>
                 </ul>
             </div>
         </li>

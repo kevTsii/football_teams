@@ -4,7 +4,6 @@ table:
   seller: Seller
   amount: Amount
 
-
 form:
   create:
     tab_title: Make transaction
@@ -17,3 +16,7 @@ flash:
 exception:
   balance_not_enough: "%name%'s balance is not enough for the transaction."
   same_team: "%name% can not sell a player to itself."
+
+sidebar:
+  new_transfer: Make new transfer
+  header: mercato

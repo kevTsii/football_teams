@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Teams{% endblock %}
+{% trans_default_domain('team') %}
+
+{% block title %}{{ 'team.plural'|trans|capitalize }}{% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('team') }}
@@ -8,7 +10,7 @@
 
 {% block content %}
     <div class="container text-center m-auto pe-5 ps-0">
-        <h3>Teams</h3>
+        <h3>{{ 'team.plural'|trans|capitalize }}</h3>
         {% for message in app.flashes('success') %}
             <div class="alert alert-success" role="alert">
                 {{ message|capitalize }}
@@ -17,7 +19,7 @@
         <div class="mb-3 d-flex align-items-center justify-content-end mt-3">
             <form action="" class="col-3 d-flex justify-content-end">
                     <div class="me-3 mt-1">
-                        <label for="content-number-limit" class="form-label align-middle">Limit</label>
+                        <label for="content-number-limit" class="form-label align-middle">{{ 'limit'|trans({}, 'app') }}</label>
                     </div>
                     <select name="limit" id="content-number-limit" class="form-select w-50" onchange="this.form.submit()">
                         <option value="10" {{ 10 == teams.maxPerPage ? 'selected' : '' }}>10</option>
@@ -32,9 +34,9 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Money Balance</th>
-                        <th scope="col">Country</th>
+                        <th scope="col">{{ 'team.property.name'|trans }}</th>
+                        <th scope="col">{{ 'team.property.money_balance'|trans }}</th>
+                        <th scope="col">{{ 'team.property.country'|trans }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,7 +51,7 @@
                     {% endfor %}
                 {% else %}
                     <tr class="user-select-none">
-                        <td colspan="5">No team in the database.</td>
+                        <td colspan="5">{{ 'table.empty'|trans({'%context%': 'team'}, 'form') }}</td>
                     </tr>
                 {% endif %}
                 </tbody>

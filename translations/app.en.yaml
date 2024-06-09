@@ -1,6 +1,12 @@
 app:
   home:
-    welcome:
-    description:
+    title: homepage
+    welcome: Welcome to %application_name%
+    description: I am an application which manages transfers between football teams.
+  sidebar:
+    list:
+      team: List of teams
+      transfer: Mercato history
+      country: List of countries
 
 limit: Limit

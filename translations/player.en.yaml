@@ -1,17 +1,6 @@
-table:
-
-
-form:
-  create:
-  edit:
-  submit:
-
-flash:
-  success:
-    create:
-    edit:
-    delete:
-  error:
-    create:
-    edit:
-    delete:
+player:
+  property:
+    name: Name
+    surname: Surname
+    career_start: Career start
+    joined_on: Joined club on
