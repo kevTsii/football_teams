@@ -114,7 +114,7 @@ class TransferBS
      */
     public function increaseSellerBalance(Team $seller, float $transferAmount): void
     {
-        $seller->setMoneyBalance($seller->getMoneyBalance() - $transferAmount);
+        $seller->setMoneyBalance($seller->getMoneyBalance() + $transferAmount);
     }
 
     /**
@@ -127,6 +127,6 @@ class TransferBS
      */
     public function decreaseBuyerBalance(Team $buyer, float $transferAmount): void
     {
-        $buyer->setMoneyBalance($buyer->getMoneyBalance() + $transferAmount);
+        $buyer->setMoneyBalance($buyer->getMoneyBalance() - $transferAmount);
     }
 }
