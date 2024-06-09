@@ -87,7 +87,16 @@ class PlayersController extends AbstractCommonController
     #[Route('/delete/{player}', name: 'app_players_delete', methods: ['GET', 'DELETE'])]
     public function delete(Player $player): Response
     {
-        $this->playerBS->deletePlayer($player);
+        try{
+            $this->playerBS->deletePlayer($player);
+        }catch(\Exception $e){
+            $this->addFlash('error', $e->getMessage());
+
+            return $this->redirectToRoute(
+                'app_players_show',
+                ['player' => $player->getId()]
+            );
+        }
 
         $this->addFlash('success', $this->translate(
             'success.delete',

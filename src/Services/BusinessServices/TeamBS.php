@@ -4,6 +4,7 @@ namespace App\Services\BusinessServices;
 
 use App\Data\Constants\Translation;
 use App\Data\Entity\Team;
+use App\Exception\HasTransferException;
 use App\Exception\NotEmptyException;
 use App\Factory\TeamFactory;
 use App\Factory\TranslatorTrait;
@@ -86,7 +87,7 @@ class TeamBS
      * @param Team $team
      *
      * @return void
-     * @throws NotEmptyException
+     * @throws NotEmptyException|HasTransferException
      */
     public function deleteTeam(Team $team): void
     {
@@ -96,6 +97,15 @@ class TeamBS
                 ['%name%' => $team->getName()],
                 Translation::TEAM_DOMAIN
             ));
+        }
+
+        if(count($team->getPurchases()) > 0 || count($team->getSells()) > 0){
+            throw new HasTransferException($this->translate(
+                'exception.has_transfer',
+                ['%name%' => $team->getName()],
+                Translation::TEAM_DOMAIN
+                )
+            );
         }
 
         $this->repository->delete($team, true);

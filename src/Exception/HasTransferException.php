@@ -5,9 +5,9 @@ namespace App\Exception;
 use Exception;
 use ReturnTypeWillChange;
 
-class NotEmptyException extends Exception
+class HasTransferException extends Exception
 {
-    public function __construct($message = "Is not empty", $code = 0, Exception $previous = null)
+    public function __construct($message = "Has Transfer", $code = 0, Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

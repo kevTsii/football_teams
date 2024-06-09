@@ -2,8 +2,10 @@
 
 namespace App\Services\BusinessServices;
 
+use App\Data\Constants\Translation;
 use App\Data\Entity\Player;
 use App\Data\Entity\Team;
+use App\Exception\HasTransferException;
 use App\Factory\PlayerFactory;
 use App\Factory\TranslatorTrait;
 use App\Repository\PlayerRepository;
@@ -86,9 +88,19 @@ class PlayerBS
      * @param Player $player
      *
      * @return void
+     * @throws HasTransferException
      */
     public function deletePlayer(Player $player): void
     {
+        if(count($player->getTransfers()) > 0){
+            throw new HasTransferException($this->translate(
+                'exception.has_transfer',
+                ['%name%' => $player->getName().' '.$player->getSurname()],
+                Translation::PLAYER_DOMAIN
+            )
+            );
+        }
+
         $this->repository->delete($player, true);
     }
 

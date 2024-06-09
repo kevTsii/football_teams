@@ -9,6 +9,7 @@ team:
 
 exception:
   not_empty: '%name% may contain some players. Delete or transfer those players before deleting the team.'
+  has_transfer: '%name% can not be deleted. It has some transfers in the database.'
 
 form:
   add_player: Add new player

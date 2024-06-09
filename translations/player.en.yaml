@@ -4,3 +4,6 @@ player:
     surname: Surname
     career_start: Career start
     joined_on: Joined club on
+
+exception:
+  has_transfer: '%name% can not be deleted. This player has some transfers in the database.'

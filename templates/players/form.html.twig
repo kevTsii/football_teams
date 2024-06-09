@@ -19,6 +19,11 @@
             {% endif %}
         </div>
         <h2 class="text-center">{{ isEdit ? player.name~' '~player.surname : 'create.content_title'|trans({'%context%': 'player'}) }}</h2>
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
         <div class="d-flex justify-content-center mt-3">
             <div class="w-75">
                 {{ form_start(form) }}
