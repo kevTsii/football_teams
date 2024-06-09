@@ -5,6 +5,7 @@ namespace App\Services\ApplicationServices;
 use App\Exception\BalanceNotEnoughException;
 use App\Exception\SameTeamException;
 use App\Factory\TransferFactory;
+use App\Factory\TranslatorTrait;
 use App\Repository\PlayerRepository;
 use App\Repository\TeamRepository;
 use App\Repository\TransferRepository;
@@ -12,6 +13,8 @@ use App\Services\BusinessServices\TransferBS;
 
 class TransferAS
 {
+    use TranslatorTrait;
+
     public function __construct(
         private readonly TransferFactory $transferFactory,
         private readonly TransferRepository $transferRepository,

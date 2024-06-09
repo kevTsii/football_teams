@@ -1,0 +1,16 @@
+table:
+
+
+form:
+  create:
+    tab_title: Make transaction
+    content_title: Make new transfer
+
+flash:
+  success:
+    create:
+    edit:
+    delete:
+  error:
+    balance:
+    same_team:

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Data\Constants\Context;
 use App\Data\Entity\Country;
+use App\Factory\TranslatorTrait;
 use App\Form\CountryType;
 use App\Services\BusinessServices\CountryBS;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/countries')]
 class CountryController extends AbstractCommonController
 {
+    use TranslatorTrait;
 
     public function __construct(
         private readonly CountryBS $countryBS,

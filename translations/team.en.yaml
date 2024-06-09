@@ -1,0 +1,17 @@
+table:
+
+
+form:
+  create:
+  edit:
+  submit:
+
+flash:
+  success:
+    create:
+    edit:
+    delete:
+  error:
+    create:
+    edit:
+    delete:

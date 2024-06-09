@@ -5,6 +5,7 @@ namespace App\Services\BusinessServices;
 use App\Data\Entity\Team;
 use App\Data\Entity\Transfer;
 use App\Factory\TransferFactory;
+use App\Factory\TranslatorTrait;
 use App\Repository\TransferRepository;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
@@ -12,6 +13,8 @@ use Psr\Log\LoggerInterface;
 
 class TransferBS
 {
+    use TranslatorTrait;
+
     public function __construct(
         private readonly TransferRepository $repository,
         private readonly TransferFactory $transferFactory,

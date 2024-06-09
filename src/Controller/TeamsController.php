@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Data\Constants\Context;
 use App\Data\Entity\Team;
+use App\Factory\TranslatorTrait;
 use App\Form\TeamType;
 use App\Services\BusinessServices\TeamBS;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/teams')]
 class TeamsController extends AbstractCommonController
 {
+    use TranslatorTrait;
 
     public function __construct(
         private readonly TeamBS $teamBS,

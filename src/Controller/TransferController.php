@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Data\Constants\Context;
 use App\Data\Entity\Transfer;
+use App\Factory\TranslatorTrait;
 use App\Form\TransferType;
 use App\Services\ApplicationServices\TransferAS;
 use App\Services\BusinessServices\TransferBS;
@@ -14,6 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/transfer')]
 class TransferController extends AbstractCommonController
 {
+    use TranslatorTrait;
+
     public function __construct(
         private readonly TransferAS $transferAS,
         private readonly TransferBS $transferBS
@@ -42,10 +45,10 @@ class TransferController extends AbstractCommonController
                 return $this->redirectToRoute('app_transfer_list');
             }catch(\Exception $e){
                 $this->addFlash('error', $e->getMessage());
-
-                return $this->renderFormView($transfer, Context::TRANSFER_CONTEXT, $form, 'transfers/create.html.twig');
             }
         }
+
+        return $this->renderFormView($transfer, Context::TRANSFER_CONTEXT, $form, 'transfers/create.html.twig');
     }
 
     #[Route('/list', name: 'app_transfer_list', methods: ['GET'])]

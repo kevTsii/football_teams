@@ -5,6 +5,7 @@ namespace App\Services\BusinessServices;
 use App\Data\Entity\Team;
 use App\Exception\NotEmptyException;
 use App\Factory\TeamFactory;
+use App\Factory\TranslatorTrait;
 use App\Repository\TeamRepository;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
@@ -12,6 +13,8 @@ use Psr\Log\LoggerInterface;
 
 class TeamBS
 {
+    use TranslatorTrait;
+
     public function __construct(
         private readonly TeamRepository $repository,
         private readonly TeamFactory $teamFactory,

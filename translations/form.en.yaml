@@ -1,0 +1,11 @@
+create:
+  tab_title: Create %context%
+  content_title: Create a new %context%
+
+edit:
+  title: Edit %name%
+  button: Edit
+
+submit:
+  create: Create
+  edit: Save changes

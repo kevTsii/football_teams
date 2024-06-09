@@ -5,6 +5,7 @@ namespace App\Services\BusinessServices;
 use App\Data\Entity\Player;
 use App\Data\Entity\Team;
 use App\Factory\PlayerFactory;
+use App\Factory\TranslatorTrait;
 use App\Repository\PlayerRepository;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
@@ -12,6 +13,8 @@ use Psr\Log\LoggerInterface;
 
 class PlayerBS
 {
+    use TranslatorTrait;
+
     public function __construct(
         private readonly PlayerRepository $repository,
         private readonly PlayerFactory $playerFactory,

@@ -4,6 +4,7 @@ namespace App\Services\BusinessServices;
 
 use App\Data\Entity\Country;
 use App\Exception\NotEmptyException;
+use App\Factory\TranslatorTrait;
 use App\Repository\CountryRepository;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
@@ -11,6 +12,8 @@ use Psr\Log\LoggerInterface;
 
 class CountryBS
 {
+    use TranslatorTrait;
+
     public function __construct(
         private readonly CountryRepository $repository,
         private readonly LoggerInterface $logger,

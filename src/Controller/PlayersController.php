@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Data\Constants\Context;
 use App\Data\Entity\Player;
 use App\Data\Entity\Team;
+use App\Factory\TranslatorTrait;
 use App\Form\PlayerType;
 use App\Services\ApplicationServices\PlayerAS;
 use App\Services\BusinessServices\PlayerBS;
@@ -16,6 +17,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/players')]
 class PlayersController extends AbstractCommonController
 {
+    use TranslatorTrait;
+
     public function __construct(
         private readonly PlayerAS $playerAS,
         private readonly PlayerBS $playerBS,
