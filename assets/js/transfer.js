@@ -7,14 +7,14 @@ sellerSelect.change(function() {
 })
 
 $(document).ready(function() {
-  populatePlayerOptions(sellerSelect.val());
+  playerSelect.empty();
 });
 
 function populatePlayerOptions(sellerId){
   $.ajax({
     url: `${$('#base-url').val()}/players/by-team/${sellerId}`,
     success: function (data) {
-      let players = JSON.parse(data)
+      let players = data
       playerSelect.empty();
       playerSelect.append('<option value=""></option>')
       players.map(function(player){

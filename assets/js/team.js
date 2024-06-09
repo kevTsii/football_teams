@@ -16,7 +16,7 @@ let playersTable = new DataTable('#players-table', {
       param.orderDir = param.order[0].dir;
     },
     dataSrc : function ( json ){
-      return JSON.parse(json.datas);
+      return json.datas;
     },
   },
   lengthMenu: [

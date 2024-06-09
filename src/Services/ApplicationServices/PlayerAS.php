@@ -2,15 +2,14 @@
 
 namespace App\Services\ApplicationServices;
 
+use App\Data\DataTransferObject\PlayerDTO;
 use App\Repository\PlayerRepository;
 use App\Services\BusinessServices\PlayerBS;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class PlayerAS
 {
     public function __construct(
         private readonly PlayerBS $playerBS,
-        private readonly SerializerInterface $serializer,
         private readonly PlayerRepository $playerRepository
     )
     {
@@ -25,14 +24,17 @@ class PlayerAS
      */
     public function getDataTableResponse(array $parameters): array
     {
-        $toReturn['datas'] = $this->serializer->serialize(
+        $players = iterator_to_array(
             $this->playerBS->getAllPlayersPaginate(
                 (int)$parameters['offset'] + 1,
                 (int)$parameters['limit'],
                 (int)$parameters['team']
-            )->getCurrentPageResults(),
-            'json',
-            ['groups' => ['player-info-serialized']]);
+            )->getCurrentPageResults()
+        );
+
+        $toReturn['datas'] = array_map(function ($player){
+            return new PlayerDTO($player);
+        }, $players);
 
         $totalRows = $this->playerRepository->countAll('p');
         $toReturn['recordsTotal'] = $totalRows;

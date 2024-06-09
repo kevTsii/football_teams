@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Data\Constants\Context;
 use App\Data\Constants\Translation;
+use App\Data\DataTransferObject\PlayerDTO;
 use App\Data\Entity\Player;
 use App\Data\Entity\Team;
 use App\Factory\TranslatorTrait;
@@ -13,7 +14,6 @@ use App\Services\BusinessServices\PlayerBS;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/players')]
 class PlayersController extends AbstractCommonController
@@ -23,7 +23,6 @@ class PlayersController extends AbstractCommonController
     public function __construct(
         private readonly PlayerAS $playerAS,
         private readonly PlayerBS $playerBS,
-        private readonly SerializerInterface $serializer,
     )
     {
     }
@@ -104,9 +103,8 @@ class PlayersController extends AbstractCommonController
     #[Route('/by-team/{team}', name: 'app_players_get_by_teams', methods: ['GET'])]
     public function getByTeams(Request $request, Team $team): Response
     {
-        return $this->json($this->serializer->serialize(
-            $this->playerBS->getByTeam($team),
-            'json',
-            ['groups' => ['player-info-serialized']]));
+        return $this->json(array_map(function ($player){
+            return new PlayerDTO($player);
+        }, $this->playerBS->getByTeam($team)));
     }
 }
