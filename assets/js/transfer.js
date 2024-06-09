@@ -7,7 +7,11 @@ sellerSelect.change(function() {
 })
 
 $(document).ready(function() {
-  playerSelect.empty();
+  if ('' === sellerSelect.val()) {
+    playerSelect.empty();
+  } else {
+    populatePlayerOptions(sellerSelect.val())
+  }
 });
 
 function populatePlayerOptions(sellerId){
