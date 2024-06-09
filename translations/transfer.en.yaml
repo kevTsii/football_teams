@@ -1,4 +1,8 @@
+index:
+  title: List of transfers
+
 table:
+  date: Date
   player: Player
   buyer: Buyer
   seller: Seller

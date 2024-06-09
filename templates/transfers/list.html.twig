@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% trans_default_domain('transfer') %}
+
 {% block title %}Teams{% endblock %}
 
 {% block javascripts %}
@@ -8,7 +10,7 @@
 
 {% block content %}
     <div class="container text-center m-auto pe-5 ps-0">
-        <h3>List of transfers</h3>
+        <h3>{{ 'index.title'|trans }}</h3>
         {% for message in app.flashes('success') %}
             <div class="alert alert-success" role="alert">
                 {{ message }}
@@ -17,7 +19,7 @@
         <div class="mb-3 d-flex align-items-center justify-content-end mt-3">
             <form action="" class="col-3 d-flex justify-content-end">
                     <div class="me-3 mt-1">
-                        <label for="content-number-limit" class="form-label align-middle">Limit</label>
+                        <label for="content-number-limit" class="form-label align-middle">{{ 'limit'|trans({}, 'app') }}</label>
                     </div>
                     <select name="limit" id="content-number-limit" class="form-select w-50" onchange="this.form.submit()">
                         <option value="10" {{ 10 == transfers.maxPerPage ? 'selected' : '' }}>10</option>
@@ -31,18 +33,18 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Player</th>
-                        <th scope="col">Buyer</th>
-                        <th scope="col">Seller</th>
-                        <th scope="col">Amount</th>
+                        <th scope="col">{{ 'table.date'|trans }}</th>
+                        <th scope="col">{{ 'table.player'|trans }}</th>
+                        <th scope="col">{{ 'table.buyer'|trans }}</th>
+                        <th scope="col">{{ 'table.seller'|trans }}</th>
+                        <th scope="col">{{ 'table.amount'|trans }}</th>
                     </tr>
                 </thead>
                 <tbody>
                 {% if transfers is not empty %}
                     {% for transfer in transfers %}
                         <tr class="user-select-none">
-                            <td>{{ transfer.createdAt|date('d F Y, h:i') }}</td>
+                            <td>{{ transfer.createdAt|date('d F Y, h:i A') }}</td>
                             <td>{{ transfer.player.name }} {{ transfer.player.surname }}</td>
                             <td>{{ transfer.buyer.name }}</td>
                             <td>{{ transfer.seller.name }}</td>
