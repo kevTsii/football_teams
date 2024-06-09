@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{% trans_default_domain('form') %}
+
 {% set isEdit = ('app_players_show' == app.current_route) %}
 
-{% block title %}{{ isEdit ? player.surname : 'Create new player' }}{% endblock %}
+{% block title %}{{ isEdit ? player.surname : 'create.tab_title'|trans({'%context%': 'player'}) }}{% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('player') }}
@@ -11,17 +13,17 @@
 {% block content %}
     <div class="container m-auto pe-5 ps-0 w-25">
         <div class="d-flex justify-content-end mb-2">
-            <button class="btn btn-success edit-button">Edit</button>
+            <button class="btn btn-success edit-button">{{ 'edit.button'|trans }}</button>
             {% if isEdit %}
                 <a href="{{ path('app_players_delete', {'player': player.id}) }}" class="btn btn-danger ms-2"><i class="fa fa-trash"></i></a>
             {% endif %}
         </div>
-        <h2 class="text-center">{{ isEdit ? player.name~" "~player.surname : 'Create new player' }}</h2>
+        <h2 class="text-center">{{ isEdit ? player.name~' '~player.surname : 'create.content_title'|trans({'%context%': 'player'}) }}</h2>
         <div class="d-flex justify-content-center mt-3">
             <div class="w-75">
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
-                <button id="edit-player-submit" type="submit" class="btn btn-primary {{ 'app_players_show' == app.current_route ? 'd-none' : '' }}">Save changes</button>
+                <button id="edit-player-submit" type="submit" class="btn btn-primary {{ 'app_players_show' == app.current_route ? 'd-none' : '' }}">{{ ('submit.'~(isEdit ? 'edit' : 'create'))|trans }}</button>
                 {{ form_end(form) }}
             </div>
         </div>

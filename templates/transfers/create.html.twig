@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Make Transaction{% endblock %}
+{% trans_default_domain('transfer') %}
+
+{% block title %}{{  'form.create.tab_title'|trans }}{% endblock %}
 
 {% block content %}
     <div class="container m-auto pe-5 ps-0 w-25">
-        <h2 class="text-center">Make a new transfer</h2>
+        <h2 class="text-center">{{ 'form.create.content_title'|trans }}</h2>
         {% for message in app.flashes('error') %}
             <div class="alert alert-danger" role="alert">
                 {{ message }}
@@ -14,7 +16,7 @@
             <div class="w-75">
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
-                <button id="edit-player-submit" type="submit" class="btn btn-primary {{ 'app_players_show' == app.current_route ? 'd-none' : '' }}">Save changes</button>
+                <button id="edit-player-submit" type="submit" class="btn btn-primary {{ 'app_players_show' == app.current_route ? 'd-none' : '' }}">{{ 'submit.create'|trans({}, 'form') }}</button>
                 {{ form_end(form) }}
             </div>
         </div>

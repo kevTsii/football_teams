@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{% trans_default_domain('form') %}
+
 {% set isEdit = ('app_countries_show' == app.current_route) %}
 
-{% block title %}{{ isEdit ? country.name : 'Create new country' }}{% endblock %}
+{% block title %}{{ isEdit ? country.name : 'create.tab_title'|trans({'%context%': 'country'}) }}{% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('country') }}
@@ -12,11 +14,11 @@
     <div class="container m-auto pe-5 ps-0 w-25">
         <div class="d-flex justify-content-end mb-2">
             {% if isEdit %}
-                <button class="btn btn-success edit-button">Edit</button>
+                <button class="btn btn-success edit-button">{{ 'edit.button'|trans }}</button>
                 <a href="{{ path('app_countries_delete', {'country': country.id}) }}" class="btn btn-danger ms-2"><i class="fa fa-trash"></i></a>
             {% endif %}
         </div>
-        <h2 class="text-center">{{ isEdit ? country.name : 'Create new country' }}</h2>
+        <h2 class="text-center">{{ isEdit ? country.name : 'create.content_title'|trans({'%context%': 'country'}) }}</h2>
         {% for message in app.flashes('error') %}
             <div class="alert alert-danger" role="alert">
                 {{ message }}
@@ -26,7 +28,7 @@
             <div class="w-75">
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
-                <button id="edit-country-submit" type="submit" class="btn btn-primary {{ 'app_countries_show' == app.current_route ? 'd-none' : '' }}">Save changes</button>
+                <button id="edit-country-submit" type="submit" class="btn btn-primary {{ 'app_countries_show' == app.current_route ? 'd-none' : '' }}">{{ ('submit.'~(isEdit ? 'edit' : 'create'))|trans }}</button>
                 {{ form_end(form) }}
             </div>
         </div>
