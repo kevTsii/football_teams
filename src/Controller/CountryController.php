@@ -65,6 +65,7 @@ class CountryController extends AbstractCommonController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $this->countryBS->updateCountry($country, $request->request->all()['country']['name']);
+            $this->addFlash('success', 'Country edited successfully.');
 
             return $this->redirectToRoute('app_countries_index');
         }
@@ -80,5 +81,15 @@ class CountryController extends AbstractCommonController
     #[Route('/delete/{country}', name: 'app_countries_delete', methods: ['GET', 'DELETE'])]
     public function delete(Country $country): Response
     {
+        try{
+            $this->countryBS->deleteCountry($country);
+            $this->addFlash('success', 'Country deleted successfully.');
+
+            return $this->redirectToRoute('app_countries_index');
+        }catch (\Exception $e){
+            $this->addFlash('error', $e->getMessage());
+
+            return  $this->redirectToRoute('app_countries_show', ['country' => $country->getId()]);
+        }
     }
 }

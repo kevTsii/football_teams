@@ -3,6 +3,7 @@
 namespace App\Services\BusinessServices;
 
 use App\Data\Entity\Country;
+use App\Exception\NotEmptyException;
 use App\Repository\CountryRepository;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
@@ -79,16 +80,15 @@ class CountryBS
      *
      * @param Country $country
      *
-     * @return bool
+     * @return void
+     * @throws NotEmptyException
      */
-    public function deleteCountry(Country $country): bool
+    public function deleteCountry(Country $country): void
     {
-        try{
-            $this->repository->delete($country, true);
-            return true;
-        }catch (\Exception $e){
-            $this->logger->error('Failed to delete Country with id : '.$country->getId().' || Fatal Error : '.$e->getMessage().' in '.$e->getFile().' on line '.$e->getLine());
-            return false;
+        if(count($country->getTeams()) > 0) {
+            throw new NotEmptyException( $country->getName().' may contains some teams. Delete those teams before deleting the country.');
         }
+
+        $this->repository->delete($country, true);
     }
 }

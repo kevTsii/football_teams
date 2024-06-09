@@ -81,17 +81,15 @@ class TeamBS
      *
      * @param Team $team
      *
-     * @return bool
+     * @return void
      * @throws NotEmptyException
      */
-    public function deleteTeam(Team $team): bool
+    public function deleteTeam(Team $team): void
     {
         if(count($team->getPlayers()) > 0) {
             throw new NotEmptyException('The team contains some players. Delete or transfer those players before deleting the team.');
         }
 
         $this->repository->delete($team, true);
-
-        return true;
     }
 }

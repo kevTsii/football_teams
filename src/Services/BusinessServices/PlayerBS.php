@@ -82,18 +82,13 @@ class PlayerBS
      *
      * @param Player $player
      *
-     * @return bool
+     * @return void
      */
-    public function deletePlayer(Player $player): bool
+    public function deletePlayer(Player $player): void
     {
-        try{
-            $this->repository->delete($player, true);
-            return true;
-        }catch (\Exception $e){
-            $this->logger->error('Failed to delete Player with id : '.$player->getId().' || Fatal Error : '.$e->getMessage().' in '.$e->getFile().' on line '.$e->getLine());
-            return false;
-        }
+        $this->repository->delete($player, true);
     }
+
 
     /**
      * @param Team $team

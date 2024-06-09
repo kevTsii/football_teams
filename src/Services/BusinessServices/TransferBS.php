@@ -81,17 +81,11 @@ class TransferBS
      *
      * @param Transfer $transfer
      *
-     * @return bool
+     * @return void
      */
-    public function deleteTransaction(Transfer $transfer): bool
+    public function deleteTransaction(Transfer $transfer): void
     {
-        try{
-            $this->repository->delete($transfer, true);
-            return true;
-        }catch (\Exception $e){
-            $this->logger->error('Failed to delete Transfer with id : '.$transfer->getId().' || Fatal Error : '.$e->getMessage().' in '.$e->getFile().' on line '.$e->getLine());
-            return false;
-        }
+        $this->repository->delete($transfer, true);
     }
 
     /**
