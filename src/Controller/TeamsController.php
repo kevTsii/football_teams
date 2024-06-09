@@ -78,11 +78,14 @@ class TeamsController extends AbstractCommonController
     #[Route('/delete/{team}', name: 'app_teams_delete', methods: ['GET', 'POST'])]
     public function delete(Team $team): Response
     {
-        if(($deleting = $this->teamBS->deleteTeam($team))['status']){
-            $this->addFlash('success', $deleting['message']);
-            return $this->redirectToRoute('app_teams_index');
-        }else{
-            $this->addFlash('error', $deleting['message']);
+        try{
+            $this->teamBS->deleteTeam($team);
+            $this->addFlash('success', 'message');
+
+            return $this->redirectToRoute('app_teams_show', ['team' => $team->getId()]);
+        }catch(\Exception $e){
+            $this->addFlash('error', $e->getMessage());
+
             return $this->redirectToRoute('app_teams_show', ['team' => $team->getId()]);
         }
     }

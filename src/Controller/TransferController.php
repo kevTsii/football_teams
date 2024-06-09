@@ -42,16 +42,12 @@ class TransferController extends AbstractCommonController
                 $this->addFlash('success', 'Transaction done successfully.');
 
                 return $this->redirectToRoute('app_transfer_list');
-            }catch(BalanceNotEnoughException $balanceException){
-                $this->addFlash('error', $balanceException->getMessage());
-            }catch(SameTeamException $sameTeamException){
-                $this->addFlash('error', $sameTeamException->getMessage());
             }catch(\Exception $e){
-                $this->addFlash('error', 'Unhandled error occurred : '.$e->getMessage());
+                $this->addFlash('error', $e->getMessage());
+
+                return $this->renderFormView($transfer, Context::TRANSFER_CONTEXT, $form, 'transfers/create.html.twig');
             }
         }
-
-        return $this->renderFormView($transfer, Context::TRANSFER_CONTEXT, $form, 'transfers/create.html.twig');
     }
 
     #[Route('/list', name: 'app_transfer_list', methods: ['GET'])]

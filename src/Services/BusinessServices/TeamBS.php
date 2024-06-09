@@ -3,9 +3,9 @@
 namespace App\Services\BusinessServices;
 
 use App\Data\Entity\Team;
+use App\Exception\TeamNotEmptyException;
 use App\Factory\TeamFactory;
 use App\Repository\TeamRepository;
-use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
 use Psr\Log\LoggerInterface;
@@ -81,28 +81,17 @@ class TeamBS
      *
      * @param Team $team
      *
-     * @return array
+     * @return bool
+     * @throws TeamNotEmptyException
      */
-    public function deleteTeam(Team $team): array
+    public function deleteTeam(Team $team): bool
     {
-        try{
-            $this->repository->delete($team, true);
-            return [
-                'status' => true,
-                'message' => 'Team deleted successfully'
-            ];
-        }catch (ForeignKeyConstraintViolationException $fkException){
-            $this->logger->error('Failed to delete Team with id : '.$team->getId().' || Error : '.$fkException->getMessage().' in '.$fkException->getFile().' on line '.$fkException->getLine());
-            return [
-                'status' => false,
-                'message' => 'The team contains some players. Delete or transfer those players before deleting the team.'
-            ];
-        }catch (\Exception $e){
-            $this->logger->error('Failed to delete Team with id : '.$team->getId().' || Fatal Error : '.$e->getMessage().' in '.$e->getFile().' on line '.$e->getLine());
-            return [
-                'status' => false,
-                'message' => 'Unhandled error occurred'
-            ];
+        if(count($team->getPlayers()) > 0) {
+            throw new TeamNotEmptyException('The team contains some players. Delete or transfer those players before deleting the team.');
         }
+
+        $this->repository->delete($team, true);
+
+        return true;
     }
 }
