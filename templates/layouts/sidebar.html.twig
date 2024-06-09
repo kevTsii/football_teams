@@ -24,5 +24,14 @@
                 </ul>
             </div>
         </li>
+        <li class="mb-1">
+            <div class="fs-5 text-center text-muted text-decoration-underline">Countries</div>
+            <div class="ms-3" id="home-collapse">
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li><a href="{{ path('app_countries_index') }}" class="nav-link link-dark {{ 'app_countries_index' == current_path ? 'active' : '' }}">List of countries</a></li>
+                    <li><a href="{{ path('app_countries_create') }}" class="nav-link link-dark {{ 'app_countries_create' == current_path ? 'active' : '' }}">Create a new country</a></li>
+                </ul>
+            </div>
+        </li>
     </ul>
 </div>

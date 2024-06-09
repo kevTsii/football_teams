@@ -34,6 +34,27 @@ class CountryController extends AbstractCommonController
     #[Route('/create', name: 'app_countries_create', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
+        $country = new Country();
+        $form = $this->createForm(CountryType::class, $country);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            try{
+                $this->countryBS->createCountry($country->getName());
+                $this->addFlash('success', 'Country created successfully');
+
+                return $this->redirectToRoute('app_countries_index');
+            }catch(\Exception $e){
+                $this->addFlash('error', $e->getMessage());
+            }
+        }
+
+        return $this->renderFormView(
+            $country,
+            Context::COUNTRY_CONTEXT,
+            $form,
+            'countries/form.html.twig'
+        );
     }
 
     #[Route('/show/{country}', name: 'app_countries_show', methods: ['GET', 'POST'])]
@@ -48,7 +69,12 @@ class CountryController extends AbstractCommonController
             return $this->redirectToRoute('app_countries_index');
         }
 
-        return $this->renderFormView($country, Context::COUNTRY_CONTEXT,  $form, 'countries/form.html.twig');
+        return $this->renderFormView(
+            $country,
+            Context::COUNTRY_CONTEXT,
+            $form,
+            'countries/form.html.twig'
+        );
     }
 
     #[Route('/delete/{country}', name: 'app_countries_delete', methods: ['GET', 'DELETE'])]

@@ -5,7 +5,7 @@ namespace App\Exception;
 use Exception;
 use ReturnTypeWillChange;
 
-class TeamNotEmptyException extends Exception
+class NotEmptyException extends Exception
 {
     public function __construct($message = "Team balance not enough for the transaction", $code = 0, Exception $previous = null)
     {

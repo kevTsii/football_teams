@@ -3,7 +3,7 @@
 namespace App\Services\BusinessServices;
 
 use App\Data\Entity\Team;
-use App\Exception\TeamNotEmptyException;
+use App\Exception\NotEmptyException;
 use App\Factory\TeamFactory;
 use App\Repository\TeamRepository;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
@@ -82,12 +82,12 @@ class TeamBS
      * @param Team $team
      *
      * @return bool
-     * @throws TeamNotEmptyException
+     * @throws NotEmptyException
      */
     public function deleteTeam(Team $team): bool
     {
         if(count($team->getPlayers()) > 0) {
-            throw new TeamNotEmptyException('The team contains some players. Delete or transfer those players before deleting the team.');
+            throw new NotEmptyException('The team contains some players. Delete or transfer those players before deleting the team.');
         }
 
         $this->repository->delete($team, true);
