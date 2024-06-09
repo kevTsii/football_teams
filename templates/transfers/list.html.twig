@@ -44,7 +44,7 @@
                 {% if transfers is not empty %}
                     {% for transfer in transfers %}
                         <tr class="user-select-none">
-                            <td>{{ transfer.createdAt|date('d F Y, h:i A') }}</td>
+                            <td>{{ transfer.createdAt|date('d F Y, h:i a') }}</td>
                             <td>{{ transfer.player.name }} {{ transfer.player.surname }}</td>
                             <td>{{ transfer.buyer.name }}</td>
                             <td>{{ transfer.seller.name }}</td>
