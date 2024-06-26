@@ -1,5 +1,8 @@
 # football_clubs
-Interview test task for Internet Projects Ltd
+This a personal project that i made to show my personal skills in Symfony 6.4
+
+# Architecture
+In this project, I used the n-tier architecture.
 
 # Installation (after git clone)
 1- Change the database parameters in the .env as you wish <br>
